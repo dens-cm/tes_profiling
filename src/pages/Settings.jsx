@@ -1,13 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
 import * as ReactIcons from 'react-icons/hi2'
 import { SettingsIcon } from '@chakra-ui/icons'
 import { TiHome } from "react-icons/ti"
-import { doc, onSnapshot } from 'firebase/firestore'
-import { firestoreDB } from '../config/FirebaseConfig'
-import { useAuth } from '../config/Authentication'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../config/Authentication'
+import useFetchUserData from '../hooks/data/userData'
 import ArchiveAccount from '../components/modal/ArchiveAccount'
 import Toast from '../components/Toast'
 
@@ -17,8 +15,8 @@ export default function Settings() {
     const passwordRef = React.useRef()
     const confirmPasswordRef = React.useRef()
     const navigate = useNavigate()
-    const { currentUser, updateEmail, updatePassword, logout } = useAuth()
-    const [userData, setUserData] = React.useState(null)
+    const { currentUser, updateEmail, updatePassword } = useAuth()
+    const { archive } = useFetchUserData(currentUser)
     const [loading, setLoading] = React.useState(false)
     const showToast = Toast()
     const { isOpen, onOpen, onClose } = Chakra.useDisclosure()
@@ -80,35 +78,12 @@ export default function Settings() {
         setIsEmailChanged(newEmail !== currentUser.email)
     }
 
-    React.useEffect(() => {
-        if (currentUser && currentUser.uid) {
-            const docRef = doc(firestoreDB, 'users', currentUser.uid)
-
-            const unsubscribe = onSnapshot(
-                docRef,
-                (doc) => {
-                    if (doc.exists()) {
-                        const data = doc.data()
-                        if (Object.keys(data).length > 0) {
-                            setUserData(data)
-                        }
-                    }
-                },
-                (error) => {
-                    console.error("Error fetching document:", error)
-                    logout()
-                }
-            )
-
-            return () => unsubscribe()
-        }
-    }, [currentUser])
 
     React.useEffect(() => {
-        if (userData?.status === 'archive') {
+        if(archive) {
             navigate('/')
         }
-    }, [userData])
+    }, [archive, navigate])
 
     return (
         <Chakra.Box w='100%' h='100%' p='1% 35% 1% 35%' bg='#f0f1f5' display='flex' flexDirection='column' overflow='auto'>

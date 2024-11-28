@@ -1,51 +1,25 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import React from 'react'
-import * as Chakra from '@chakra-ui/react'
-import { TiRefresh, TiDownload, TiPlus } from "react-icons/ti"
-import { BiSolidPrinter, BiSolidFolder } from "react-icons/bi"
-import { collection, query, onSnapshot } from 'firebase/firestore'
-import { firestoreDB } from '../config/FirebaseConfig'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { MaterialReactTable } from 'material-react-table'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
-import { useAuth } from '../config/Authentication'
+import * as Chakra from '@chakra-ui/react'
+import { useReactToPrint } from 'react-to-print'
+import { TiRefresh, TiDownload, TiPlus } from "react-icons/ti"
+import { BiSolidPrinter, BiSolidFolder } from "react-icons/bi"
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { MaterialReactTable } from 'material-react-table'
 import { saveCSV } from '../utils/xlsx/SaveCSV'
 import AddCertificate from '../components/modal/AddCertificate'
 import ViewCertificate from '../components/modal/ViewCertificate'
 import SchoolLogo from '../assets/tes_logo.png'
 
-export default function Trainings() {
+export default function Trainings({ certificates, loadingCertificates, refreshCertificates }) {
 
   const { isOpen: isOpenCertificateForm, onOpen: onOpenCertificateForm, onClose: onCloseCertificateForm } = Chakra.useDisclosure()
   const { isOpen: isOpenCertificate, onOpen: onOpenCertificate, onClose: onCloseCertificate } = Chakra.useDisclosure()
-  const { currentUser } = useAuth()
-  const [certificates, setCertificates] = React.useState([])
   const [selectedCertificate, setSelectedCertificate] = React.useState(null)
-  const [refreshTrigger, setRefreshTrigger] = React.useState(false)
-  const [loading, setLoading] = React.useState(false)
-
-  React.useEffect(() => {
-    const certificatesRef = collection(firestoreDB, `users/${currentUser.uid}/certificates`)
-    const q = query(certificatesRef)
-    setLoading(true)
-
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const certificateList = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-
-      setCertificates(certificateList)
-      setLoading(false)
-    })
-
-    return () => unsubscribe()
-  }, [refreshTrigger])
-
-  const refreshCertificates = () => {
-    setRefreshTrigger(prev => !prev)
-  }
+  const contentRef = React.useRef(null)
+  const [printing, setPrinting] = React.useState(false)
 
   const handleCardClick = (certificate) => {
     setSelectedCertificate(certificate)
@@ -147,6 +121,24 @@ export default function Trainings() {
     saveCSV(certificates, columns, `certificates`)
   }
 
+  const handlePrint = useReactToPrint({
+    contentRef,
+    removeAfterPrint: true,
+    includeStyles: true,
+    pageStyle: `
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+            @page {
+                margin: 1in !important; 
+            }
+        }
+    `,
+    onBeforeGetContent: () => setPrinting(true),
+    onAfterPrint: () => setPrinting(false)
+  })
+
   return (
     <Chakra.Box w='100%' h='100%'>
       <Chakra.Tabs w='100%' h='100%'>
@@ -163,7 +155,7 @@ export default function Trainings() {
               <Chakra.IconButton onClick={onOpenCertificateForm} ml='1%' h='1.7vw' fontSize='1vw' colorScheme='blue' icon={<TiPlus />} borderRadius='0' />
             </Chakra.Tooltip>
             <Chakra.Tooltip label='Print certificate' fontSize='.9vw'>
-              <Chakra.IconButton ml='1%' h='1.7vw' fontSize='.8vw' colorScheme='blue' icon={<BiSolidPrinter />} borderRadius='0' />
+              <Chakra.IconButton onClick={handlePrint} isLoading={printing} isDisable={printing} ml='1%' h='1.7vw' fontSize='.8vw' colorScheme='blue' icon={<BiSolidPrinter />} borderRadius='0' />
             </Chakra.Tooltip>
             <Chakra.Button onClick={handleSaveAsPDF} ml='1%' h='1.7vw' fontSize='.8vw' colorScheme='teal' leftIcon={<TiDownload size='.9vw' />} borderRadius='0'>Save as PDF</Chakra.Button>
             <Chakra.Button onClick={handleSaveCSV} ml='1%' h='1.7vw' fontSize='.8vw' colorScheme='teal' leftIcon={<TiDownload size='.9vw' />} borderRadius='0'>Save as CSV</Chakra.Button>
@@ -172,7 +164,7 @@ export default function Trainings() {
 
         <Chakra.TabPanels w='100%' h='93%' overflow='auto'>
           <Chakra.TabPanel w='100%' display='flex' flexWrap='wrap'>
-            {loading ? (
+            {loadingCertificates ? (
               <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='center'>
                 <Chakra.Spinner w='1vw' h='1vw' color='gray.500' />
                 <Chakra.Text ml='1%' fontSize='.9vw' fontWeight='bold' fontStyle='italic' color='gray.500'>Fetching data...</Chakra.Text>
@@ -198,7 +190,7 @@ export default function Trainings() {
                       <Chakra.Text fontSize='.9vw' fontWeight='400' color='gray.700' textTransform='capitalize' isTruncated>Sponsoring Agency: {certificate.sponsoringAgency}</Chakra.Text>
                     </Chakra.Box>
                     <Chakra.Box w='100%' mt='5%' p='0 5% 5% 5%'>
-                      <Chakra.Image w='100%' h='10vw' bg='gray.100' objectFit='contain' src={certificate.imageUrl || SchoolLogo} alt='certificate image'/>
+                      <Chakra.Image w='100%' h='10vw' bg='gray.100' objectFit='contain' src={certificate.imageUrl || SchoolLogo} alt='certificate image' />
                     </Chakra.Box>
                   </Chakra.Card>
                 ))}
@@ -206,7 +198,7 @@ export default function Trainings() {
             )}
           </Chakra.TabPanel>
           <Chakra.TabPanel w='100%' bg='white'>
-            {loading ? (
+            {loadingCertificates ? (
               <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='center'>
                 <Chakra.Spinner w='1vw' h='1vw' color='gray.500' />
                 <Chakra.Text ml='1%' fontSize='.9vw' fontWeight='bold' fontStyle='italic' color='gray.500'>Fetching data...</Chakra.Text>
@@ -247,6 +239,46 @@ export default function Trainings() {
 
       <AddCertificate isOpen={isOpenCertificateForm} onClose={onCloseCertificateForm} />
       <ViewCertificate isOpen={isOpenCertificate} onClose={onCloseCertificate} certificate={selectedCertificate} />
+
+      {/* printable layout */}
+      <Chakra.Box w='100%' hidden>
+        <Chakra.Box ref={contentRef} w='100%'>
+          <Chakra.Text mb='.7%' textAlign='center' fontSize='20px' fontWeight='700' color='gray.700'>Certificates</Chakra.Text>
+          <Chakra.Box w='100%' h='1px' bg='gray.300'></Chakra.Box>
+          {/* <Chakra.Box mt='5%' mb='1%' display='flex'>
+          <Chakra.Text fontSize='16px' color='black' textTransform='capitalize'>Name:</Chakra.Text>
+          <Chakra.Text fontSize='16px' ml='1%' fontWeight='500' color='black' textTransform='capitalize'>{`${data?.firstName} ${data?.middleName} ${data?.lastName} ${data?.extensionName}`}</Chakra.Text>
+        </Chakra.Box> */}
+          <table style={{ width: '100%', border: '1px solid gray', borderCollapse: 'collapse' }}>
+            <thead style={{ width: '100%', backgroundColor: 'lightgray' }}>
+              <tr>
+                <th style={{ width: '30%', color: 'black', padding: '1.5%', textAlign: 'left', fontSize: '13px', textTransform: 'uppercase', border: '1px solid gray' }}>Title</th>
+                <th style={{ width: '20%', color: 'black', padding: '1.5%', textAlign: 'left', fontSize: '13px', textTransform: 'uppercase', border: '1px solid gray' }}>Venue</th>
+                <th style={{ width: '30%', color: 'black', padding: '1.5%', textAlign: 'left', fontSize: '13px', textTransform: 'uppercase', border: '1px solid gray' }}>Sponsoring Agency</th>
+                <th style={{ width: '20%', color: 'black', padding: '1.5%', textAlign: 'left', fontSize: '13px', textTransform: 'uppercase', border: '1px solid gray' }}>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!loadingCertificates && certificates.length > 0 ? (
+                certificates.map((certificate) => (
+                  <tr key={certificate.id}>
+                    <td style={{ width: '30%', color: 'black', padding: '1% 1% 1% 2%', fontSize: '13px', border: '1px solid gray', textTransform: 'capitalize' }}>{certificate.title}</td>
+                    <td style={{ width: '20%', color: 'black', padding: '1% 1% 1% 2%', fontSize: '13px', border: '1px solid gray', textTransform: 'capitalize' }}>{certificate.venue}</td>
+                    <td style={{ width: '30%', color: 'black', padding: '1% 1% 1% 2%', fontSize: '13px', border: '1px solid gray', textTransform: 'capitalize' }}>{certificate.sponsoringAgency}</td>
+                    <td style={{ width: '25%', color: 'black', padding: '1% 1% 1% 2%', fontSize: '13px', border: '1px solid gray', textTransform: 'capitalize' }}>{new Date(certificate.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) || 'N/A'}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4} style={{ textAlign: 'center', padding: '8px', border: '1px solid gray' }}>
+                    {loadingCertificates ? 'Loading...' : 'No certificates found.'}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </Chakra.Box>
+      </Chakra.Box>
     </Chakra.Box>
   )
 }

@@ -4,10 +4,10 @@ import * as Chakra from '@chakra-ui/react'
 import { ChevronDownIcon, SettingsIcon } from '@chakra-ui/icons'
 import { TiMail, TiInputChecked, TiMap, TiUserOutline, TiThLargeOutline } from "react-icons/ti"
 import { BiSolidLogOut } from "react-icons/bi"
-import { useAuth } from '../config/Authentication'
-import { doc, onSnapshot } from 'firebase/firestore'
-import { firestoreDB } from '../config/FirebaseConfig'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../config/Authentication'
+import useFetchUserData from '../hooks/data/userData'
+import useFetchCertificates from '../hooks/data/userCertificates'
 import Dashboard from '../views/Dashboard'
 import Profile from '../views/Profile'
 import Trainings from '../views/Trainings'
@@ -18,18 +18,18 @@ import SchoolLogo from '../assets/tes_logo.png'
 
 export default function Home() {
 
-    const [userLoading, setUserLoading] = React.useState(false)
-    const [isEmailVerified, setIsEmailVerified] = React.useState(false)
-    const [accountArchived, setAccountArchived] = React.useState(false)
-    const [userData, setUserData] = React.useState(null)
+    const [fetching, setFetching] = React.useState(false)
     const { currentUser, logout, loading } = useAuth()
+    const { userData, userLoading , archive } = useFetchUserData(currentUser)
+    const { certificates, loadingCertificates, refreshCertificates } = useFetchCertificates(currentUser)
+    const [isEmailVerified, setIsEmailVerified] = React.useState(false)
     const [activeView, setActiveView] = React.useState('dashboard')
     const { isOpen: isOpenLogoutModal, onOpen: onOpenLogoutModal, onClose: onCloseLogoutModal } = Chakra.useDisclosure()
     const navigate = useNavigate()
     const showToast = Toast()
 
     React.useEffect(() => {
-        setUserLoading(true)
+        setFetching(true)
 
         const checkEmailVerification = async () => {
             try {
@@ -52,7 +52,7 @@ export default function Home() {
             }
 
             finally {
-                setUserLoading(false)
+                setFetching(false)
             }
 
         }
@@ -61,7 +61,7 @@ export default function Home() {
     }, [currentUser])
 
     const resendVerification = async () => {
-        setUserLoading(true)
+        setFetching(true)
 
         try {
             if (currentUser && !currentUser.emailVerified) {
@@ -79,53 +79,14 @@ export default function Home() {
         }
 
         finally {
-            setUserLoading(false)
+            setFetching(false)
         }
     }
-
-    React.useEffect(() => {
-        if (currentUser && currentUser.uid && userData === null) {
-            const docRef = doc(firestoreDB, 'users', currentUser.uid)
-
-            const unsubscribe = onSnapshot(
-                docRef,
-                (doc) => {
-                    if (doc.exists()) {
-                        const data = doc.data()
-                        if (Object.keys(data).length > 0) {
-                            setUserData(data)
-                        }
-                    }
-
-                    else {
-                        setUserData(null)
-                        showToast({ description: 'Fill up this form first', status: 'info', variant: 'solid', position: 'top' })
-                    }
-                },
-                (error) => {
-                    console.error("Error fetching document:", error)
-                    setUserData(null)
-                }
-            )
-
-            return () => unsubscribe()
-        }
-    }, [currentUser])
-
-    React.useEffect(() => {
-        if (userData?.status === 'archive') {
-            setAccountArchived(true)
-        }
-
-        else {
-            setAccountArchived(false)
-        }
-    }, [userData])
 
     return (
         <Chakra.Box w='100%' h='100%' bg='#f0f1f5'>
             {
-                loading || userLoading ? (
+                loading || userLoading || fetching ? (
                     <Chakra.Box w='100%' h='100%' bg='white' display='flex' alignItems='center' justifyContent='center'>
                         <Chakra.Spinner w='1.2vw' h='1.2vw' mr='.5%' thickness='.2vw' />
                         <Chakra.Text fontSize='1vw' fontWeight='500'>Please wait</Chakra.Text>
@@ -206,7 +167,7 @@ export default function Home() {
                                 <Chakra.Box w='80%' h='100%' overflow='auto'>
                                     {activeView === 'dashboard' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            {accountArchived ? (
+                                            {archive ? (
                                                 <Archived userData={userData} logout={logout}/>
                                             )
                                                 :
@@ -217,23 +178,23 @@ export default function Home() {
                                     )}
                                     {activeView === 'profile' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            {accountArchived ? (
+                                            {archive ? (
                                                 <Archived userData={userData} logout={logout}/>
                                             )
                                                 :
                                                 (
-                                                    <Profile />
+                                                    <Profile userData={userData} userLoading={userLoading}/>
                                                 )}
                                         </Chakra.Box>
                                     )}
                                     {activeView === 'trainings' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            {accountArchived ? (
+                                            {archive ? (
                                                 <Archived userData={userData} logout={logout}/>
                                             )
                                                 :
                                                 (
-                                                    <Trainings />
+                                                    <Trainings certificates={certificates} loadingCertificates={loadingCertificates} refreshCertificates={refreshCertificates}/>
                                                 )}
                                         </Chakra.Box>
                                     )}
