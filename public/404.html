@@ -1,12 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page not found</title>
-  </head>
-  <body>
-    <script type="module" src="/src/404.jsx"></script>
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container img {
+            width: 10vw;
+            height: 10vw;
+        }
+
+        .container .text {
+            font-size: 1vw;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .container button {
+            height: 2vw;
+            margin-top: 2%;
+            font-size: 0.8vw;
+            font-weight: bold;
+            background-color: #38b2ac; 
+            border: none;
+            color: white;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+            background-color: #319795; 
+        }
+
+        .icon {
+            font-size: 1vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/src/assets/404.png" alt="404 page not found">
+        <p class="text">Page not found</p>
+        <div class="icon">&#10060;</div> <!-- TiTimes icon using Unicode -->
+        <button onclick="window.location.href='/'">
+            <span class="icon">&#x1F3E0;</span> Home <!-- TiHome icon using Unicode -->
+        </button>
+    </div>
+</body>
 </html>
