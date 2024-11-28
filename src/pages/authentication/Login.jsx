@@ -20,7 +20,7 @@ export default function Login() {
         <Chakra.Box w='100%' h='100%' bg='#f0f1f5' display='flex' justifyContent='center' alignItems='center' overflow='auto'>
             <Chakra.Box w='30%' p='2%' bg='white' boxShadow='.2vw .2vw .3vw rgba(185, 186, 182, 0.5)'>
                 <Chakra.Box w='100%' mb='1%' display='flex' alignItems='center'>
-                    <Chakra.Image w='1.5vw' h='1.5vw' mr='1.5%' src={schoolLogo} />
+                    <Chakra.Image w='1.5vw' h='1.5vw' mr='1.5%' src={schoolLogo} alt='school logo'/>
                     <Chakra.Text fontSize='1vw' fontWeight='bold' fontStyle='italic' color='gray.600' textTransform='uppercase'>Tagongon Elementary School</Chakra.Text>
                 </Chakra.Box>
                 <hr />

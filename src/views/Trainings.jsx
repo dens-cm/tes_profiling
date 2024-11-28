@@ -171,7 +171,7 @@ export default function Trainings() {
         </Chakra.TabList>
 
         <Chakra.TabPanels w='100%' h='93%' overflow='auto'>
-          <Chakra.TabPanel w='100%' bg='white' display='flex' flexWrap='wrap'>
+          <Chakra.TabPanel w='100%' display='flex' flexWrap='wrap'>
             {loading ? (
               <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='center'>
                 <Chakra.Spinner w='1vw' h='1vw' color='gray.500' />
@@ -198,7 +198,7 @@ export default function Trainings() {
                       <Chakra.Text fontSize='.9vw' fontWeight='400' color='gray.700' textTransform='capitalize' isTruncated>Sponsoring Agency: {certificate.sponsoringAgency}</Chakra.Text>
                     </Chakra.Box>
                     <Chakra.Box w='100%' mt='5%' p='0 5% 5% 5%'>
-                      <Chakra.Image w='100%' h='10vw' bg='gray.100' objectFit='contain' src={certificate.imageUrl || SchoolLogo} />
+                      <Chakra.Image w='100%' h='10vw' bg='gray.100' objectFit='contain' src={certificate.imageUrl || SchoolLogo} alt='certificate image'/>
                     </Chakra.Box>
                   </Chakra.Card>
                 ))}

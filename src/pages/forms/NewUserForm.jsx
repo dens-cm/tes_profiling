@@ -143,7 +143,7 @@ export default function NewUserForm() {
         <Chakra.Box w='100%' h='100%' p='2% 20% 2% 20%' bg='gray.100' overflow='auto'>
             <Chakra.Box w='100%' p='4.7%' bg='white'>
                 <Chakra.Box w='100%' mb='2%' display='flex' alignItems='center'>
-                    <Chakra.Image w='3vw' src={SchoolLogo} objectFit='cover' />
+                    <Chakra.Image w='3vw' src={SchoolLogo} objectFit='cover' alt='school logo'/>
                     <Chakra.Box w='100%' ml='1.5%' display='flex' flexDirection='column'>
                         <Chakra.Text fontSize='1.1vw' fontWeight='bold' color='gray.600'>Hi Teacher!</Chakra.Text>
                         <Chakra.Text fontSize='1vw' fontWeight='400' fontStyle='italic' color='gray.700'>Complete your profile to let us know you better.</Chakra.Text>

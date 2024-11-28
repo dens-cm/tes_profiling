@@ -64,7 +64,7 @@ export default function ViewCertificate({ isOpen, onClose, certificate }) {
                     <Chakra.Text mt='4%' fontSize='1.1vw' fontWeight='bold' color='gray.600' textTransform='capitalize'>{certificate?.title}</Chakra.Text>
                     <Chakra.Text fontSize='.9vw' fontWeight='400' color='gray.600' textTransform='capitalize'>venue: {certificate?.venue}</Chakra.Text>
                     <Chakra.Text mb='4%' fontSize='.9vw' fontWeight='400' color='gray.600' textTransform='capitalize'>sponsoring agency: {certificate?.sponsoringAgency}</Chakra.Text>
-                    <Chakra.Image w='100%' h='15vw' mb='4%' objectFit='contain' bg='gray.100' src={`${certificate?.imageUrl}`}/>
+                    <Chakra.Image w='100%' h='15vw' mb='4%' objectFit='contain' bg='gray.100' src={`${certificate?.imageUrl}`} alt='certificate image'/>
                     <hr/>
                     <Chakra.Box w='100%' mt='4%' display='flex' justifyContent='right'>
                         <Chakra.Button onClick={handleDelete} isLoading={loading} colorScheme='red' h='2vw' fontSize='.8vw' fontWeight='400' borderRadius='0'>Delete</Chakra.Button>

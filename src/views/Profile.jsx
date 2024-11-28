@@ -88,7 +88,7 @@ export default function Profile() {
               </Chakra.Box>
             </Chakra.Box>
             <Chakra.Box w='100%' mt='.5%' p='3%' bg='white' display='flex' boxShadow='.2vw .2vw .3vw rgba(105, 126, 116, .1)'>
-              <Chakra.Image w='8vw' h='8vw' border='.1vw solid #b9bab6' src={userData?.profileImageUrl} />
+              <Chakra.Image w='8vw' h='8vw' border='.1vw solid #b9bab6' src={userData?.profileImageUrl} alt='profile image'/>
               <Chakra.Box w='100%' ml='3%'>
                 <Chakra.Text fontSize='1.5vw' fontWeight='700' color='gray.700' textTransform='capitalize'>{userData?.firstName} {userData?.middleName} {userData?.lastName} {userData?.extensionName}</Chakra.Text>
                 <Chakra.Box w='100%' mt='2%' p='.1% 0 0 0' display='flex' justifyContent='space-between'>

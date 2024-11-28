@@ -12,7 +12,7 @@ export default function Archived({ userData, logout }) {
                 <Chakra.Text fontSize='1vw' fontWeight='bold' fontStyle='italic' color='gray.500'>Your account has been archived.</Chakra.Text>
                 <hr/>
                 <Chakra.Box mt='5%' display='flex' alignItems='center'>
-                    <Chakra.Image w='3vw' h='3vw' borderRadius='full' src={userData?.profileImageUrl} />
+                    <Chakra.Image w='3vw' h='3vw' borderRadius='full' src={userData?.profileImageUrl} alt='user image'/>
                     <Chakra.Box ml='3%' display='flex' flexDirection='column'>
                         <Chakra.Text fontSize='1vw' fontWeight='700' color='gray.600' textTransform='capitalize'>{userData?.firstName} {userData?.middleName} {userData?.lastName} {userData?.extensionName}</Chakra.Text>
                         <hr/>

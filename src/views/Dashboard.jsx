@@ -27,10 +27,10 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <Chakra.Box w='100%' h='100%' p='1.5%' bg='white'>
+    <Chakra.Box w='100%' h='100%' p='1.5%' bg='white' display='flex' flexDirection='column'>
       <Chakra.Text mb='.5%' fontSize='.9vw' fontWeight='bold' color='gray.600'>Tagongon Elementary School Teachers</Chakra.Text>
       <hr />
-      <Chakra.Box w='100%' p='1% 0 0 0' display='flex' flexWrap='wrap'>
+      <Chakra.Box w='100%' h='100%' p='1% 0 0 0' display='flex' alignItems='flex-start' justifyContent='flex-start' flexWrap='wrap' overflow='auto'>
         {loading ? (
           <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='center'>
             <Chakra.Spinner w='1vw' h='1vw' color='gray.500' />
@@ -46,7 +46,7 @@ export default function Dashboard() {
           <>
             {teachers.filter((teacher) => teacher?.userType !== 'admin' && teacher?.status !== 'archive').map((teacher) => (
               <Chakra.Card key={teacher.id} w='15.5%' m='.5%' borderRadius='0' boxShadow='none' border='.1vw solid #f0f1f5' _hover={{ boxShadow: '.3vw .3vw .3vw rgb(105, 126, 116, .3)', bg: '#fbfbfc', transition: '.3s' }} transition='.3s'>
-                <Chakra.Image w='100%' h='14vw' objectFit='cover' src={teacher?.profileImageUrl} />
+                <Chakra.Image w='100%' h='14vw' objectFit='cover' src={teacher?.profileImageUrl} alt='teacher image'/>
                 <Chakra.Box w='100%' p='5%'>
                   <Chakra.Text fontSize='.9vw' fontWeight='bold' color='gray.600' textTransform='capitalize' isTruncated>{teacher?.firstName} {teacher?.middleName} {teacher?.lastName} {teacher?.extensionName}</Chakra.Text>
                   <hr />
