@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { firestoreDB } from '../../config/FirebaseConfig'
 import { useAuth } from '../../config/Authentication'
@@ -9,6 +10,7 @@ const useFetchUserData = (currentUser) => {
     const [userLoading, setUserLoading] = React.useState(false)
     const [archive, setArchive] = React.useState(false)
     const { logout } = useAuth()
+    const navigate = useNavigate()
 
     React.useEffect(() => {
         if (currentUser && currentUser.uid) {
@@ -27,6 +29,10 @@ const useFetchUserData = (currentUser) => {
                     else {
                         setUserData(null)
                         setArchive(false)
+
+                        if(userData === null) {
+                            navigate('/new-user-form')
+                        }
                     }
 
                     setUserLoading(false)
