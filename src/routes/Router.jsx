@@ -11,7 +11,6 @@ import Home from '../pages/Home'
 import Settings from '../pages/Settings'
 import ForgotPasswordForm from '../pages/ForgotPasswordForm'
 import NewUserForm from '../pages/forms/NewUserForm'
-import PageNotFound from '../404'
 
 export default function App() {
 
@@ -41,7 +40,6 @@ export default function App() {
                         <Route exact path='/register' element={<PrivateRoutes publicOnly={true}> <Register /> </PrivateRoutes>} />
                         <Route exact path='/login' element={<PrivateRoutes publicOnly={true}> <Login /> </PrivateRoutes>} />
                         <Route exact path='/forgot-password' element={<PrivateRoutes publicOnly={true}> <ForgotPasswordForm /> </PrivateRoutes>} />
-                        <Route exact path='*' element={<PageNotFound />} />
                     </Routes>
                 </Authentication>
             </Router>
