@@ -109,7 +109,7 @@ export default function Home() {
                         <Chakra.Box w='100%' h='100%' bg='gray.100' display='flex' flexDirection='column'>
                             <Chakra.Box zIndex='1' w='100%' h='7%' p='0 1% 0 1%' bg='white' display='flex' alignItems='center' justifyContent='space-between' boxShadow='.1vw .1vw .3vw rgba(105, 126, 116, .1)'>
                                 <Chakra.Box w='19.4%' h='100%' display='flex' alignItems='center'>
-                                    <Chakra.Image w='2.2vw' mr='1%' src={SchoolLogo} alt='school logo'/>
+                                    <Chakra.Image w='2.2vw' h='2.2vw' mr='1.5%' src={SchoolLogo} alt='school logo'/>
                                     <Chakra.Box display='flex' flexDirection='column'>
                                         <Chakra.Text fontSize='.8vw' fontWeight='bold' color='gray.600'>Tagongon Elementary School</Chakra.Text>
                                         <hr />

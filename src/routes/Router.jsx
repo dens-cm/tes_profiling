@@ -40,6 +40,7 @@ export default function App() {
                         <Route exact path='/register' element={<PrivateRoutes publicOnly={true}> <Register /> </PrivateRoutes>} />
                         <Route exact path='/login' element={<PrivateRoutes publicOnly={true}> <Login /> </PrivateRoutes>} />
                         <Route exact path='/forgot-password' element={<PrivateRoutes publicOnly={true}> <ForgotPasswordForm /> </PrivateRoutes>} />
+                        <Route path='*' element={<Navigate to="/" />} />
                     </Routes>
                 </Authentication>
             </Router>
