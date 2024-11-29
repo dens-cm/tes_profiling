@@ -37,36 +37,22 @@
             font-style: italic;
         }
 
-        .container button {
-            height: 2vw;
-            margin-top: 2%;
-            font-size: 0.8vw;
-            font-weight: bold;
-            background-color: #38b2ac; 
-            border: none;
-            color: white;
-            border-radius: 0;
-            cursor: pointer;
-        }
-
-        .container button:hover {
-            background-color: #319795; 
-        }
-
         .icon {
             font-size: 1vw;
             margin: '0 0 3% 0';
         }
     </style>
+    <script>
+        setTimeout(function() {
+            window.location.href = '/';
+        }, 500); 
+    </script>
 </head>
 <body>
     <div class="container">
         <img src="404.png" alt="404 page not found">
         <p class="text">Page not found</p>
         <div class="icon">&#10060;</div> 
-        <button onclick="window.location.href='/'">
-            <span class="icon">&#x1F3E0;</span> Home 
-        </button>
     </div>
 </body>
 </html>
