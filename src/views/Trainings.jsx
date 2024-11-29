@@ -3,7 +3,7 @@ import React from 'react'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import { useReactToPrint } from 'react-to-print'
 import { TiRefresh, TiDownload, TiPlus } from "react-icons/ti"
 import { BiSolidPrinter, BiSolidFolder } from "react-icons/bi"

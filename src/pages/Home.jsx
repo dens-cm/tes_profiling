@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import { ChevronDownIcon, SettingsIcon } from '@chakra-ui/icons'
 import { TiMail, TiInputChecked, TiMap, TiUserOutline, TiThLargeOutline } from "react-icons/ti"
 import { BiSolidLogOut } from "react-icons/bi"

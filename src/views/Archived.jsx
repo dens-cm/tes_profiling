@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import { TiArrowSync } from "react-icons/ti"
 import { BiLogOut } from "react-icons/bi"
 

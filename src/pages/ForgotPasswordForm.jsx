@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import { HiEnvelope } from 'react-icons/hi2'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../config/Authentication'

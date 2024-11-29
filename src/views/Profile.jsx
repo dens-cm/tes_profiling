@@ -2,7 +2,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import { HiPhone, HiMiniMapPin, HiEnvelope } from 'react-icons/hi2'
 import { BiPrinter, BiEditAlt } from "react-icons/bi"
 import { useReactToPrint } from 'react-to-print'

@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import * as ReactIcons from 'react-icons/hi2'
 import { SettingsIcon } from '@chakra-ui/icons'
 import { TiHome } from "react-icons/ti"

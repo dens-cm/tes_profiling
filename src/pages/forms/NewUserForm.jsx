@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { BiSolidLogOut } from "react-icons/bi"
 import { TiCloudStorage } from "react-icons/ti"
