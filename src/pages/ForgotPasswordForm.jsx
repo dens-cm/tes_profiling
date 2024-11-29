@@ -1,5 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 import { HiEnvelope } from 'react-icons/hi2'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../config/Authentication'
@@ -42,13 +43,18 @@ export default function ForgotPasswordForm() {
 
     return (
         <Chakra.Box w='100%' h='100%' bg='gray.100' display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
+            <Helmet>
+                <title>Forgot password - Tagongon Elementary School Profiling System</title>
+                <meta name="description" content="Reset your password for the Tagongon Elementary School Profiling System to regain access to your account." />
+                <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
+            </Helmet>
             <Chakra.Card w='25%' p='1%' bg='white' borderRadius='0'>
                 <Chakra.Box display='flex'>
                     <Chakra.Image w='2.2vw' h='2.2vw' src={SchoolLogo} />
                     <Chakra.Box w='100%' pl='4%' pb='1%' display='flex' flexDirection='column' justifyContent='center'>
-                        <Chakra.Text fontSize='.7vw' fontWeight='700' color='gray.700' textTransform='uppercase'>Tagongon Elementary School</Chakra.Text>
+                        <Chakra.Text as="h1" fontSize='.7vw' fontWeight='700' color='gray.700' textTransform='uppercase'>Tagongon Elementary School</Chakra.Text>
                         <Chakra.Box h='.1px' bg='gray.300'></Chakra.Box>
-                        <Chakra.Text mt='.9%' fontSize='.6vw' fontWeight='500' fontStyle='italic' color='gray.700'>PROFILING SYSTEM</Chakra.Text>
+                        <Chakra.Text as="h1" mt='.9%' fontSize='.6vw' fontWeight='500' fontStyle='italic' color='gray.700'>PROFILING SYSTEM</Chakra.Text>
                     </Chakra.Box>
                 </Chakra.Box>
             </Chakra.Card>

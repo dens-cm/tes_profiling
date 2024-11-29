@@ -1,5 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 import { collection, query, onSnapshot } from 'firebase/firestore'
 import { firestoreDB } from '../config/FirebaseConfig'
 
@@ -28,7 +29,12 @@ export default function Dashboard() {
 
   return (
     <Chakra.Box w='100%' h='100%' p='1.5%' bg='white' display='flex' flexDirection='column'>
-      <Chakra.Text mb='.5%' fontSize='.9vw' fontWeight='bold' color='gray.600'>Tagongon Elementary School Teachers</Chakra.Text>
+      <Helmet>
+        <title>Dashboard - Tagongon Elementary School Profiling System</title>
+        <meta name="description" content="Welcome to the Dashboard of the Tagongon Elementary School Profiling System, where you can manage teacher data, view, and access system." />
+        <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
+      </Helmet>
+      <Chakra.Text as="h1" mb='.5%' fontSize='.9vw' fontWeight='bold' color='gray.600'>Tagongon Elementary School Teachers</Chakra.Text>
       <hr />
       <Chakra.Box w='100%' h='100%' p='1% 0 0 0' display='flex' alignItems='flex-start' justifyContent='flex-start' flexWrap='wrap' overflow='auto'>
         {loading ? (
@@ -46,7 +52,7 @@ export default function Dashboard() {
           <>
             {teachers.filter((teacher) => teacher?.userType !== 'admin' && teacher?.status !== 'archive').map((teacher) => (
               <Chakra.Card key={teacher.id} w='15.5%' m='.5%' borderRadius='0' boxShadow='none' border='.1vw solid #f0f1f5' _hover={{ boxShadow: '.3vw .3vw .3vw rgb(105, 126, 116, .3)', bg: '#fbfbfc', transition: '.3s' }} transition='.3s'>
-                <Chakra.Image w='100%' h='14vw' objectFit='cover' src={teacher?.profileImageUrl} alt='teacher image'/>
+                <Chakra.Image w='100%' h='14vw' objectFit='cover' src={teacher?.profileImageUrl} alt='teacher image' />
                 <Chakra.Box w='100%' p='5%'>
                   <Chakra.Text fontSize='.9vw' fontWeight='bold' color='gray.600' textTransform='capitalize' isTruncated>{teacher?.firstName} {teacher?.middleName} {teacher?.lastName} {teacher?.extensionName}</Chakra.Text>
                   <hr />

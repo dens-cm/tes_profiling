@@ -1,5 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { BiSolidLogOut } from "react-icons/bi"
 import { TiCloudStorage } from "react-icons/ti"
@@ -141,12 +142,17 @@ export default function NewUserForm() {
 
     return (
         <Chakra.Box w='100%' h='100%' p='2% 20% 2% 20%' bg='gray.100' overflow='auto'>
+            <Helmet>
+                <title>New Teacher Form - Tagongon Elementary School Profiling System</title>
+                <meta name="description" content="Fill out the New Teacher Form to add and manage teacher information in the Tagongon Elementary School Profiling System." />
+                <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
+            </Helmet>
             <Chakra.Box w='100%' p='4.7%' bg='white'>
                 <Chakra.Box w='100%' mb='2%' display='flex' alignItems='center'>
-                    <Chakra.Image w='3vw' src={SchoolLogo} objectFit='cover' alt='school logo'/>
+                    <Chakra.Image w='3vw' src={SchoolLogo} objectFit='cover' alt='school logo' />
                     <Chakra.Box w='100%' ml='1.5%' display='flex' flexDirection='column'>
-                        <Chakra.Text fontSize='1.1vw' fontWeight='bold' color='gray.600'>Hi Teacher!</Chakra.Text>
-                        <Chakra.Text fontSize='1vw' fontWeight='400' fontStyle='italic' color='gray.700'>Complete your profile to let us know you better.</Chakra.Text>
+                        <Chakra.Text as="h1" fontSize='1.1vw' fontWeight='bold' color='gray.600'>Hi Teacher!</Chakra.Text>
+                        <Chakra.Text as="h6" fontSize='1vw' fontWeight='400' fontStyle='italic' color='gray.700'>Complete your profile to let us know you better.</Chakra.Text>
                     </Chakra.Box>
                 </Chakra.Box>
                 <hr />
@@ -321,8 +327,8 @@ export default function NewUserForm() {
                         <Chakra.Button onClick={onOpenLogoutModal} h='2.1vw' colorScheme='blue' fontSize='.9vw' leftIcon={<BiSolidLogOut />} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>Logout</Chakra.Button>
                         <Chakra.Button type='submit' h='2.1vw' ml='1%' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>save</Chakra.Button>
                     </Chakra.Box>
-                    <Chakra.Input hidden name="status" value={formData.status} onChange={handleChange}  required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
-                    <Chakra.Input hidden name="userType" value={formData.userType} onChange={handleChange}  required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                    <Chakra.Input hidden name="status" value={formData.status} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                    <Chakra.Input hidden name="userType" value={formData.userType} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                 </form>
             </Chakra.Box>
 

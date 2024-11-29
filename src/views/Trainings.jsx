@@ -3,6 +3,7 @@ import React from 'react'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import * as Chakra from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 import { useReactToPrint } from 'react-to-print'
 import { TiRefresh, TiDownload, TiPlus } from "react-icons/ti"
 import { BiSolidPrinter, BiSolidFolder } from "react-icons/bi"
@@ -141,6 +142,11 @@ export default function Trainings({ certificates, loadingCertificates, refreshCe
 
   return (
     <Chakra.Box w='100%' h='100%'>
+      <Helmet>
+        <title>Trainings - Tagongon Elementary School Profiling System</title>
+        <meta name="description" content="View and manage your training certificates and professional development records in the Tagongon Elementary School Profiling System." />
+        <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
+      </Helmet>
       <Chakra.Tabs w='100%' h='100%'>
         <Chakra.TabList w='100%' h='7%' p='1% 1% .1% 1%' bg='white' display='flex' justifyContent='space-between'>
           <Chakra.Box w='50%' display='flex'>

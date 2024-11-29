@@ -1,5 +1,6 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 import * as ReactIcons from 'react-icons/hi2'
 import { SettingsIcon } from '@chakra-ui/icons'
 import { TiHome } from "react-icons/ti"
@@ -80,18 +81,23 @@ export default function Settings() {
 
 
     React.useEffect(() => {
-        if(archive) {
+        if (archive) {
             navigate('/')
         }
     }, [archive, navigate])
 
     return (
         <Chakra.Box w='100%' h='100%' p='1% 35% 1% 35%' bg='#f0f1f5' display='flex' flexDirection='column' overflow='auto'>
+            <Helmet>
+                <title>Settings - Tagongon Elementary School Profiling System</title>
+                <meta name="description" content="Access and update your account settings in the Tagongon Elementary School Profiling System to customize your preferences." />
+                <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
+            </Helmet>
             <Chakra.Box w='100%' p='4%' bg='white' display='flex' flexDirection='column' justifyContent='space-between'>
                 <Chakra.Box w='100%' mb='1%' display='flex' alignItems='center'>
                     <Chakra.Box w='50%' display='flex' alignItems='center'>
                         <SettingsIcon fontSize='.9vw' mr='1%' />
-                        <Chakra.Text fontSize='1vw' fontWeight='700' color='gray.600'>Settings</Chakra.Text>
+                        <Chakra.Text as="h1" fontSize='1vw' fontWeight='700' color='gray.600'>Settings</Chakra.Text>
                     </Chakra.Box>
                     <Chakra.Box w='50%' display='flex' alignItems='center' justifyContent='right'>
                         <Chakra.IconButton onClick={() => navigate('/')} fontSize='1vw' color='teal' bg='#0000' icon={<TiHome />} borderRadius='0' />

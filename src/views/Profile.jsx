@@ -2,6 +2,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import * as Chakra from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 import { HiPhone, HiMiniMapPin, HiEnvelope } from 'react-icons/hi2'
 import { BiPrinter, BiEditAlt } from "react-icons/bi"
 import { useReactToPrint } from 'react-to-print'
@@ -66,6 +67,11 @@ export default function Profile({ userData, userLoading }) {
 
   return (
     <Chakra.Box w='100%' p='2% 15% 2% 15%'>
+      <Helmet>
+        <title>Profile - Tagongon Elementary School Profiling System</title>
+        <meta name="description" content="View and update your personal profile information in the Tagongon Elementary School Profiling System to keep your details up to date." />
+        <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
+      </Helmet>
       {userLoading ? (
         <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='center'>
           <Chakra.Spinner w='1vw' h='1vw' color='gray.500' />
@@ -76,7 +82,7 @@ export default function Profile({ userData, userLoading }) {
         (
           <>
             <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='space-between'>
-              <Chakra.Text fontSize='1vw' fontWeight='bold' color='gray.600'>Teacher Information</Chakra.Text>
+              <Chakra.Text as="h1" fontSize='1vw' fontWeight='bold' color='gray.600'>Teacher Information</Chakra.Text>
               <Chakra.Box display='flex'>
                 <Chakra.Button onClick={handlePrint} h='1.5vw' mr='3%' fontSize='.7vw' fontWeight='500' colorScheme='blue' leftIcon={<BiPrinter />} isLoading={loading} isDisabled={userLoading} borderRadius='0'>Print</Chakra.Button>
                 <Chakra.Button onClick={onOpenUpdateUserData} h='1.5vw' fontSize='.7vw' fontWeight='500' colorScheme='teal' leftIcon={<BiEditAlt />} isDisabled={userLoading} borderRadius='0'>Edit</Chakra.Button>
