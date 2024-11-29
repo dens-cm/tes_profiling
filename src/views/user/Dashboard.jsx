@@ -2,7 +2,7 @@ import React from 'react'
 import * as Chakra from '@chakra-ui/react'
 import { Helmet } from 'react-helmet'
 import { collection, query, onSnapshot } from 'firebase/firestore'
-import { firestoreDB } from '../config/FirebaseConfig'
+import { firestoreDB } from '../../config/FirebaseConfig'
 
 export default function Dashboard() {
 

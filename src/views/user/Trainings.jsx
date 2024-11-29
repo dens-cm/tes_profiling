@@ -9,10 +9,10 @@ import { TiRefresh, TiDownload, TiPlus } from "react-icons/ti"
 import { BiSolidPrinter, BiSolidFolder } from "react-icons/bi"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { MaterialReactTable } from 'material-react-table'
-import { saveCSV } from '../utils/xlsx/SaveCSV'
-import AddCertificate from '../components/modal/AddCertificate'
-import ViewCertificate from '../components/modal/ViewCertificate'
-import SchoolLogo from '../assets/tes_logo.png'
+import { saveCSV } from '../../utils/xlsx/SaveCSV'
+import AddCertificate from '../../components/modal/AddCertificate'
+import ViewCertificate from '../../components/modal/ViewCertificate'
+import SchoolLogo from '../../assets/tes_logo.png'
 
 export default function Trainings({ certificates, loadingCertificates, refreshCertificates }) {
 

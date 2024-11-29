@@ -8,9 +8,9 @@ const useFetchCertificates = (currentUser) => {
     const [refreshTrigger, setRefreshTrigger] = React.useState(false)
 
     React.useEffect(() => {
-        if (!currentUser || !currentUser.uid) return
+        if (!currentUser) return
 
-        const certificatesRef = collection(firestoreDB, `users/${currentUser.uid}/certificates`)
+        const certificatesRef = collection(firestoreDB, `users/${currentUser}/certificates`)
         const q = query(certificatesRef)
 
         setLoadingCertificates(true)

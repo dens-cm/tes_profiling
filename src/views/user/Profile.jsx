@@ -6,9 +6,9 @@ import { Helmet } from 'react-helmet'
 import { HiPhone, HiMiniMapPin, HiEnvelope } from 'react-icons/hi2'
 import { BiPrinter, BiEditAlt } from "react-icons/bi"
 import { useReactToPrint } from 'react-to-print'
-import { useAuth } from '../config/Authentication'
-import useFetchCertificates from '../hooks/data/userCertificates'
-import UpdateUserData from '../components/modal/UpdateUserData'
+import { useAuth } from '../../config/Authentication'
+import useFetchCertificates from '../../hooks/data/userCertificates'
+import UpdateUserData from '../../components/modal/UpdateUserData'
 
 export default function Profile({ userData, userLoading }) {
 
