@@ -131,7 +131,7 @@ export default function Home() {
                                 <meta name="description" content="Welcome to the Tagongon Elementary School Profiling System, a platform for managing teacher data efficiently and securely." />
                                 <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
                             </Helmet>
-                            <Chakra.Box zIndex='1' w='100%' h='7%' p='0 1% 0 1%' bg='white' display='flex' alignItems='center' justifyContent='space-between' boxShadow='.1vw .1vw .3vw rgba(105, 126, 116, .1)'>
+                            <Chakra.Box zIndex='5' w='100%' h='7%' p='0 1% 0 1%' bg='white' display='flex' alignItems='center' justifyContent='space-between' boxShadow='.1vw .1vw .3vw rgba(105, 126, 116, .1)'>
                                 <Chakra.Box w='19.4%' h='100%' display='flex' alignItems='center'>
                                     <Chakra.Image w='2.2vw' h='2.2vw' mr='1.5%' src={SchoolLogo} alt='school logo' />
                                     <Chakra.Box display='flex' flexDirection='column'>
@@ -262,18 +262,18 @@ export default function Home() {
                                             )
                                                 :
                                                 (
-                                                    <Trainings certificates={certificates} loadingCertificates={loadingCertificates} refreshCertificates={refreshCertificates} />
+                                                    <Trainings certificates={certificates} loadingCertificates={loadingCertificates} refreshCertificates={refreshCertificates} userType={userData}/>
                                                 )}
                                         </Chakra.Box>
                                     )}
                                     {activeView === 'listOfTeachers' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            <Teachers/>
+                                            <Teachers userType={userData}/>
                                         </Chakra.Box>
                                     )}
                                     {activeView === 'archives' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            <Archives/>
+                                            <Archives userType={userData}/>
                                         </Chakra.Box>
                                     )}
                                 </Chakra.Box>

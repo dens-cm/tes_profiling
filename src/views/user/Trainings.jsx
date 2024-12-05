@@ -14,7 +14,7 @@ import AddCertificate from '../../components/modal/AddCertificate'
 import ViewCertificate from '../../components/modal/ViewCertificate'
 import SchoolLogo from '../../assets/tes_logo.png'
 
-export default function Trainings({ certificates, loadingCertificates, refreshCertificates }) {
+export default function Trainings({ certificates, loadingCertificates, refreshCertificates, userType }) {
 
   const { isOpen: isOpenCertificateForm, onOpen: onOpenCertificateForm, onClose: onCloseCertificateForm } = Chakra.useDisclosure()
   const { isOpen: isOpenCertificate, onOpen: onOpenCertificate, onClose: onCloseCertificate } = Chakra.useDisclosure()
@@ -244,7 +244,7 @@ export default function Trainings({ certificates, loadingCertificates, refreshCe
       </Chakra.Tabs>
 
       <AddCertificate isOpen={isOpenCertificateForm} onClose={onCloseCertificateForm} />
-      <ViewCertificate isOpen={isOpenCertificate} onClose={onCloseCertificate} certificate={selectedCertificate} />
+      <ViewCertificate isOpen={isOpenCertificate} onClose={onCloseCertificate} certificate={selectedCertificate} userType={userType}/>
 
       {/* printable layout */}
       <Chakra.Box w='100%' hidden>

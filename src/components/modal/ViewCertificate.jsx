@@ -9,7 +9,7 @@ import { ref, deleteObject } from 'firebase/storage'
 import { useAuth } from '../../config/Authentication'
 import Toast from '../Toast'
 
-export default function ViewCertificate({ isOpen, onClose, certificate }) {
+export default function ViewCertificate({ isOpen, onClose, certificate, userType }) {
 
     const { currentUser } = useAuth()
     const [loading, setLoading] = React.useState(false)
@@ -67,7 +67,7 @@ export default function ViewCertificate({ isOpen, onClose, certificate }) {
                     <Chakra.Image w='100%' h='15vw' mb='4%' objectFit='contain' bg='gray.100' src={`${certificate?.imageUrl}`} alt='certificate image'/>
                     <hr/>
                     <Chakra.Box w='100%' mt='4%' display='flex' justifyContent='right'>
-                        <Chakra.Button onClick={handleDelete} isLoading={loading} colorScheme='red' h='2vw' fontSize='.8vw' fontWeight='400' borderRadius='0'>Delete</Chakra.Button>
+                        <Chakra.Button onClick={handleDelete} isLoading={loading} disabled={userType?.userType !== 'user'} colorScheme='red' h='2vw' fontSize='.8vw' fontWeight='400' borderRadius='0'>Delete</Chakra.Button>
                         <Chakra.Button onClick={handleImageClick} colorScheme='teal' ml='1.5%' h='2vw' fontSize='.8vw' fontWeight='400' borderRadius='0'>View image</Chakra.Button>
                     </Chakra.Box>
                 </Chakra.ModalBody>
