@@ -31,7 +31,7 @@ export default function ViewCertificate({ isOpen, onClose, certificate, userType
         } 
         
         catch (error) {
-            showToast({ description: `Error deleting certificate: ' + ${error.message}`, status: 'error', variant: 'solid', position: 'top' })
+            showToast({ description: `Error deleting certificate: ${error.message}`, status: 'error', variant: 'solid', position: 'top' })
         }
 
         finally {
