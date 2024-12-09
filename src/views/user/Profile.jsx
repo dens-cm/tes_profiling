@@ -6,14 +6,10 @@ import { Helmet } from 'react-helmet'
 import { HiPhone, HiMiniMapPin, HiEnvelope } from 'react-icons/hi2'
 import { BiPrinter, BiEditAlt } from "react-icons/bi"
 import { useReactToPrint } from 'react-to-print'
-import { useAuth } from '../../config/Authentication'
-import useFetchCertificates from '../../hooks/data/userCertificates'
 import UpdateUserData from '../../components/modal/UpdateUserData'
 
-export default function Profile({ userData, userLoading }) {
+export default function Profile({ userData, userLoading, certificates }) {
 
-  const { currentUser } = useAuth()
-  const { certificates } = useFetchCertificates(currentUser)
   const [loading, setLoading] = React.useState()
   const [teachingExperience, setTeachingExperience] = React.useState('')
   const { isOpen: isOpenUpdateDataForm, onOpen: onOpenUpdateUserData, onClose: onCloseUpdateUserData } = Chakra.useDisclosure()

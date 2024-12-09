@@ -251,7 +251,7 @@ export default function Home() {
                                             )
                                                 :
                                                 (
-                                                    <Profile userData={userData} userLoading={userLoading} />
+                                                    <Profile userData={userData} userLoading={userLoading} certificates={certificates} />
                                                 )}
                                         </Chakra.Box>
                                     )}
