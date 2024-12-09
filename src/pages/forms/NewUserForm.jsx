@@ -167,7 +167,7 @@ export default function NewUserForm() {
                             <Chakra.FormLabel m='0' fontSize='.9vw' color='gray.700'>First name:</Chakra.FormLabel>
                             <Chakra.Input name="firstName" value={formData.firstName} onChange={handleChange} required h='2.5vw' fontSize='1vw' textTransform='capitalize' variant='filled' borderRadius='0' placeholder='Jaun' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Middle name:</Chakra.FormLabel>
-                            <Chakra.Input name="middleName" value={formData.middleName} onChange={handleChange} required h='2.5vw' fontSize='1vw' textTransform='capitalize' variant='filled' borderRadius='0' placeholder='Dela' />
+                            <Chakra.Input name="middleName" value={formData.middleName} onChange={handleChange} h='2.5vw' fontSize='1vw' textTransform='capitalize' variant='filled' borderRadius='0' placeholder='Dela' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Last name:</Chakra.FormLabel>
                             <Chakra.Input name="lastName" value={formData.lastName} onChange={handleChange} required h='2.5vw' fontSize='1vw' textTransform='capitalize' variant='filled' borderRadius='0' placeholder='Cruz' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Extension name:</Chakra.FormLabel>

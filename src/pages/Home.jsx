@@ -121,7 +121,9 @@ export default function Home() {
                                 <hr />
                                 <Chakra.Text fontSize='1vw' mt='4%' fontStyle='italic'>Please check your email inbox for verification: <strong>{currentUser.email}</strong></Chakra.Text>
                                 <Chakra.Text onClick={resendVerification} fontSize='.9vw' mt='6%' fontStyle='italic' color='blue' cursor='pointer'>Resend email verification link</Chakra.Text>
-                                <Chakra.Button onClick={() => window.location.reload()} w='100%' h='2.3vw' mt='2%' fontSize='.8vw' colorScheme='blue' rightIcon={<TiInputChecked fontSize='1.1vw' />} borderRadius='0'>I have verified my email</Chakra.Button>
+                                <Chakra.Button onClick={() => window.location.reload()} w='100%' h='2.3vw' mt='2%' mb='2%' fontSize='.8vw' colorScheme='blue' rightIcon={<TiInputChecked fontSize='1.1vw' />} borderRadius='0'>I have verified my email</Chakra.Button>
+                                <hr/>
+                                <Chakra.Button onClick={logout} w='100%' h='2.3vw' mt='2%' fontSize='.8vw' colorScheme='red' rightIcon={<BiSolidLogOut fontSize='.8vw' />} borderRadius='0'>Logout</Chakra.Button>
                             </Chakra.Box>
                         </Chakra.Box>
                     ) : (
