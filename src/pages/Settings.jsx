@@ -17,7 +17,7 @@ export default function Settings() {
     const confirmPasswordRef = React.useRef()
     const navigate = useNavigate()
     const { currentUser, updateEmail, updatePassword } = useAuth()
-    const { archive } = useFetchUserData(currentUser)
+    const { archive, userData } = useFetchUserData(currentUser)
     const [loading, setLoading] = React.useState(false)
     const showToast = Toast()
     const { isOpen, onOpen, onClose } = Chakra.useDisclosure()
@@ -146,7 +146,7 @@ export default function Settings() {
                                     </Chakra.Box>
                                 </Chakra.Box>
                             </form>
-                            <Chakra.Button onClick={onOpen} w='100%' h='2vw' fontSize='.8vw' mt='10%' mb='5%' colorScheme='red' leftIcon={<ReactIcons.HiTrash />} borderRadius='0'>Archive Account</Chakra.Button>
+                            <Chakra.Button onClick={onOpen} isDisabled={userData?.userType === 'admin'} w='100%' h='2vw' fontSize='.8vw' mt='10%' mb='5%' colorScheme='red' leftIcon={<ReactIcons.HiTrash />} borderRadius='0'>Archive Account</Chakra.Button>
                             <hr />
                             <Chakra.Button onClick={() => navigate('/')} w='100%' h='2vw' fontSize='.8vw' mt='5%' colorScheme='teal' leftIcon={<TiHome />} borderRadius='0'>Back</Chakra.Button>
                         </Chakra.Box>
