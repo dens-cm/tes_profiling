@@ -29,16 +29,16 @@ export default function Register() {
             </Helmet>
             <Chakra.Box w='30%' p='2%' bg='white' boxShadow='.2vw .2vw .3vw rgba(185, 186, 182, 0.5)'>
                 <Chakra.Box w='100%' mb='1%' display='flex' alignItems='center'>
-                    <Chakra.Image w='1.5vw' h='1.5vw' mr='1.5%' src={schoolLogo} alt='school logo' />
-                    <Chakra.Text as="h1" fontSize='1vw' fontWeight='bold' fontStyle='italic' color='gray.600' textTransform='uppercase'>Tagongon Elementary School</Chakra.Text>
+                    <Chakra.Image w='1.5vw' h='1.4vw' mr='1.4%' src={schoolLogo} alt='school logo' />
+                    <Chakra.Text as="h1" fontSize='.8vw' fontWeight='bold' fontStyle='italic' color='gray.600' textTransform='uppercase'>Tagongon Elementary School</Chakra.Text>
                 </Chakra.Box>
                 <hr />
                 <Chakra.Box w='100%' mt='5%' mb='5%' display='flex' alignItems='center' justifyContent='space-between'>
                     <Chakra.Box w='50%' display='flex' alignItems='center'>
-                        <Chakra.Text mr='2%' fontSize='1.5vw' fontWeight='bold' color='gray.700'><TiUserAdd /></Chakra.Text>
-                        <Chakra.Text as="h1" fontSize='1.2vw' fontWeight='bold' color='gray.700'>Create account</Chakra.Text>
+                        <Chakra.Text mr='2%' fontSize='1.3vw' fontWeight='bold' color='gray.700'><TiUserAdd /></Chakra.Text>
+                        <Chakra.Text as="h1" fontSize='1vw' fontWeight='bold' color='gray.700'>Create account</Chakra.Text>
                     </Chakra.Box>
-                    <Chakra.Button onClick={() => navigate('/login')} h='2vw' p='2.5%' fontSize='.8vw' color='gray.700' colorScheme='gray' leftIcon={<TiUser size='1.2vw' />} display='flex' alignItems='center' borderRadius='0' _hover={{ bg: '#094333', color: 'white', transition: '.3s' }} transition='.3s'>Login</Chakra.Button>
+                    <Chakra.Button onClick={() => navigate('/login')} h='2vw' p='2.5%' fontSize='.8vw' color='gray.700' colorScheme='gray' leftIcon={<TiUser size='1.2vw' />} display='flex' alignItems='center' borderRadius='0' border='.1vw solid rgb(177, 177, 177)' _hover={{ bg: '#094333', color: 'white', transition: '.3s' }} transition='.3s'>Login</Chakra.Button>
                 </Chakra.Box>
                 <hr />
                 <Chakra.Box w='100%' mt='5%'>

@@ -103,7 +103,7 @@ export default function ConfimUserDelete({ isOpen, onClose, user }) {
                             {user?.firstName || 'this user'}
                         </Chakra.Text>
                         {' '}'s data? This action is permanent and cannot be undone. Please ensure that you have saved any necessary information before proceeding. <br />
-                        <Chakra.Text mt='5%' fontSize='.9vw' fontWeight='500' color='gray.600'><i>Please note that the login credentials associated with this user will also be deleted.</i></Chakra.Text>
+                        {/* <Chakra.Text mt='5%' fontSize='.9vw' fontWeight='500' color='gray.600'><i>Please note that the login credentials associated with this user will also be deleted.</i></Chakra.Text> */}
                     </Chakra.Text>
                     <hr />
                     <Chakra.Box w='100%' mt='5%' mb='3%' display='flex' justifyContent='right'>

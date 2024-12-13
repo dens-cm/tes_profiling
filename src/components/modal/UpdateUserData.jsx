@@ -379,7 +379,7 @@ export default function UpdateUserData({ isOpen, onClose }) {
 
                                         <hr />
                                         <Chakra.Box mt='2%' display='flex' justifyContent='right'>
-                                            <Chakra.Button type='submit' h='2.1vw' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>update</Chakra.Button>
+                                            <Chakra.Button type='submit' h='1.8vw' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>update</Chakra.Button>
                                         </Chakra.Box>
                                         <Chakra.Input hidden name="status" value={formData.status} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                         <Chakra.Input hidden name="userType" value={formData.userType} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />

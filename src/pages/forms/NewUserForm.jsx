@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { BiSolidLogOut } from "react-icons/bi"
 import { TiCloudStorage } from "react-icons/ti"
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDocs, query, collection, where } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { firestoreDB, storage } from '../../config/FirebaseConfig'
 import { useAuth } from '../../config/Authentication'
@@ -104,31 +104,48 @@ export default function NewUserForm() {
         setIsLoading(true)
 
         try {
-            let profileImageUrl = formData.profileImageUrl
+            const querySnapshot = await getDocs(
+                query(
+                    collection(firestoreDB, 'users'),
+                    where('firstName', '==', formData.firstName),
+                    where('middleName', '==', formData.middleName),
+                    where('lastName', '==', formData.lastName)
+                )
+            )
 
-            if (profileImageFile) {
-                const storagePath = `users/${currentUser.uid}/profileImage/${currentUser.uid}.jpg`
-                const imageRef = ref(storage, storagePath)
-
-                await uploadBytes(imageRef, profileImageFile)
-                profileImageUrl = await getDownloadURL(imageRef)
+            if (!querySnapshot.empty) {
+                showToast({ title: 'Duplicate Entry', description: 'A teacher with this full name already exists.', status: 'error', variant: 'solid', position: 'top' })
+                setIsLoading(false)
+                return
             }
 
             else {
-                const response = await fetch(user)
-                const placeholderBlob = await response.blob()
+                let profileImageUrl = formData.profileImageUrl
 
-                const storagePath = `users/${currentUser.uid}/profileImage/${currentUser.uid}.jpg`
-                const imageRef = ref(storage, storagePath)
+                if (profileImageFile) {
+                    const storagePath = `users/${currentUser.uid}/profileImage/${currentUser.uid}.jpg`
+                    const imageRef = ref(storage, storagePath)
 
-                await uploadBytes(imageRef, placeholderBlob)
-                profileImageUrl = await getDownloadURL(imageRef)
+                    await uploadBytes(imageRef, profileImageFile)
+                    profileImageUrl = await getDownloadURL(imageRef)
+                }
+
+                else {
+                    const response = await fetch(user)
+                    const placeholderBlob = await response.blob()
+
+                    const storagePath = `users/${currentUser.uid}/profileImage/${currentUser.uid}.jpg`
+                    const imageRef = ref(storage, storagePath)
+
+                    await uploadBytes(imageRef, placeholderBlob)
+                    profileImageUrl = await getDownloadURL(imageRef)
+                }
+
+                const docRef = doc(firestoreDB, 'users', currentUser.uid)
+                await setDoc(docRef, { ...formData, profileImageUrl }, { merge: true })
+                showToast({ description: 'Your profile has been saved!', status: 'success', variant: 'solid', position: 'top' })
+                navigate('/')
             }
-
-            const docRef = doc(firestoreDB, 'users', currentUser.uid)
-            await setDoc(docRef, { ...formData, profileImageUrl }, { merge: true })
-            showToast({ description: 'Your profile has been saved!', status: 'success', variant: 'solid', position: 'top' })
-            navigate('/')
         }
 
         catch (error) {
@@ -222,7 +239,7 @@ export default function NewUserForm() {
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>ZIP code:</Chakra.FormLabel>
                             <Chakra.Input name="zipCode" value={formData.zipCode} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Contact number:</Chakra.FormLabel>
-                            <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                            <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 11) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Email address:</Chakra.FormLabel>
                             <Chakra.Input name="emailAddress" value={formData.emailAddress} onChange={handleChange} required type='email' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' />
                         </Chakra.Box>
@@ -324,8 +341,8 @@ export default function NewUserForm() {
 
                     <hr />
                     <Chakra.Box mt='2%' display='flex' justifyContent='right'>
-                        <Chakra.Button onClick={onOpenLogoutModal} h='2.1vw' colorScheme='blue' fontSize='.9vw' leftIcon={<BiSolidLogOut />} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>Logout</Chakra.Button>
-                        <Chakra.Button type='submit' h='2.1vw' ml='1%' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>save</Chakra.Button>
+                        <Chakra.Button onClick={onOpenLogoutModal} h='1.8vw' colorScheme='blue' fontSize='.9vw' leftIcon={<BiSolidLogOut />} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>Logout</Chakra.Button>
+                        <Chakra.Button type='submit' h='1.8vw' ml='1%' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>save</Chakra.Button>
                     </Chakra.Box>
                     <Chakra.Input hidden name="status" value={formData.status} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                     <Chakra.Input hidden name="userType" value={formData.userType} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
