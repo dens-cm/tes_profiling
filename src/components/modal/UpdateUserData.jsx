@@ -136,25 +136,32 @@ export default function UpdateUserData({ isOpen, onClose }) {
 
         try {
             let profileImageUrl = formData.profileImageUrl
+            let contact = formData.contactNumber
 
-            if (profileImageFile) {
-                const storagePath = `users/${currentUser.uid}/profileImage/${currentUser.uid}.jpg`
-                const imageRef = ref(storage, storagePath)
+            if (contact.length === 11) {
+                if (profileImageFile) {
+                    const storagePath = `users/${currentUser.uid}/profileImage/${currentUser.uid}.jpg`
+                    const imageRef = ref(storage, storagePath)
 
-                await uploadBytes(imageRef, profileImageFile)
-                profileImageUrl = await getDownloadURL(imageRef)
+                    await uploadBytes(imageRef, profileImageFile)
+                    profileImageUrl = await getDownloadURL(imageRef)
+                }
+
+                const updatedData = {
+                    ...formData,
+                    profileImageUrl,
+                }
+
+                const docRef = doc(firestoreDB, 'users', currentUser.uid)
+                await setDoc(docRef, updatedData, { merge: true })
+
+                showToast({ description: 'Your profile has been updated successfully!', status: 'success', variant: 'solid', position: 'top' })
+                onClose()
             }
 
-            const updatedData = {
-                ...formData,
-                profileImageUrl,
+            else {
+                showToast({ description: 'Invalid contact number', status: 'info', variant: 'solid', position: 'top' })
             }
-
-            const docRef = doc(firestoreDB, 'users', currentUser.uid)
-            await setDoc(docRef, updatedData, { merge: true })
-
-            showToast({ description: 'Your profile has been updated successfully!', status: 'success', variant: 'solid', position: 'top' })
-            onClose()
         }
 
         catch (error) {
@@ -191,7 +198,7 @@ export default function UpdateUserData({ isOpen, onClose }) {
                     )}
 
                     <Chakra.Box display='flex'>
-                        <Chakra.Button onClick={handleSubmit} h='1.5vw' mr='5%' fontSize='.8vw' fontWeight='400' colorScheme='teal'  leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} borderRadius='0'>Save changes</Chakra.Button>
+                        <Chakra.Button onClick={handleSubmit} h='1.5vw' mr='5%' fontSize='.8vw' fontWeight='400' colorScheme='teal' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} borderRadius='0'>Save changes</Chakra.Button>
                         <Chakra.Button onClick={handleClose} h='1.5vw' fontSize='.8vw' fontWeight='400' colorScheme='red' leftIcon={<SmallCloseIcon fontSize='1vw' />} borderRadius='0'>Cancel</Chakra.Button>
                     </Chakra.Box>
                 </Chakra.ModalHeader>
@@ -280,7 +287,7 @@ export default function UpdateUserData({ isOpen, onClose }) {
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>ZIP code:</Chakra.FormLabel>
                                                 <Chakra.Input name="zipCode" value={formData.zipCode} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 8) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Contact number:</Chakra.FormLabel>
-                                                <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 11) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                                                <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 11) { handleChange(e) } }} required type='number' h='2.5vw' color={(formData.contactNumber?.length || 0) < 11 && 'red'} fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Email address:</Chakra.FormLabel>
                                                 <Chakra.Input name="emailAddress" value={formData.emailAddress} onChange={handleChange} required type='email' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' />
                                             </Chakra.Box>
