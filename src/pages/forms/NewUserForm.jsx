@@ -216,7 +216,7 @@ export default function NewUserForm() {
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Birthdate:</Chakra.FormLabel>
                             <Chakra.Input name="birthdate" value={formData.birthdate} onChange={handleChange} required type='date' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Age:</Chakra.FormLabel>
-                            <Chakra.Input name="age" value={formData.age} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                            <Chakra.Input name="age" value={formData.age} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 2) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Birthplace:</Chakra.FormLabel>
                             <Chakra.Input name="birthplace" value={formData.birthplace} onChange={handleChange} required h='2.5vw' fontSize='1vw' textTransform='capitalize' variant='filled' borderRadius='0' placeholder='...' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Address:</Chakra.FormLabel>
@@ -237,7 +237,7 @@ export default function NewUserForm() {
                                 <option value='Widowed'>Widowed</option>
                             </Chakra.Select>
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>ZIP code:</Chakra.FormLabel>
-                            <Chakra.Input name="zipCode" value={formData.zipCode} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                            <Chakra.Input name="zipCode" value={formData.zipCode} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 8) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Contact number:</Chakra.FormLabel>
                             <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 11) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                             <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Email address:</Chakra.FormLabel>

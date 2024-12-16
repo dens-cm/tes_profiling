@@ -190,7 +190,10 @@ export default function UpdateUserData({ isOpen, onClose }) {
                         </Chakra.Box>
                     )}
 
-                    <Chakra.Button onClick={handleClose} h='1.5vw' fontSize='.8vw' fontWeight='400' colorScheme='red' leftIcon={<SmallCloseIcon fontSize='1vw' />} borderRadius='0'>Cancel</Chakra.Button>
+                    <Chakra.Box display='flex'>
+                        <Chakra.Button onClick={handleSubmit} h='1.5vw' mr='5%' fontSize='.8vw' fontWeight='400' colorScheme='teal'  leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} borderRadius='0'>Save changes</Chakra.Button>
+                        <Chakra.Button onClick={handleClose} h='1.5vw' fontSize='.8vw' fontWeight='400' colorScheme='red' leftIcon={<SmallCloseIcon fontSize='1vw' />} borderRadius='0'>Cancel</Chakra.Button>
+                    </Chakra.Box>
                 </Chakra.ModalHeader>
                 <Chakra.ModalBody>
                     <Chakra.Box w='100%' h='100%' p='2% 20% 2% 20%' bg='gray.100' overflow='auto'>
@@ -204,7 +207,7 @@ export default function UpdateUserData({ isOpen, onClose }) {
                             (
                                 <Chakra.Box w='100%' p='4.7%' bg='white'>
                                     <Chakra.Box w='100%' mb='2%' display='flex' alignItems='center'>
-                                        <Chakra.Image w='3vw' src={SchoolLogo} objectFit='cover' alt='school logo'/>
+                                        <Chakra.Image w='3vw' src={SchoolLogo} objectFit='cover' alt='school logo' />
                                         <Chakra.Box w='100%' ml='1.5%' display='flex' flexDirection='column'>
                                             <Chakra.Text fontSize='1.1vw' fontWeight='bold' color='gray.600'>Hi Teacher!</Chakra.Text>
                                             <Chakra.Text fontSize='1vw' fontWeight='400' fontStyle='italic' color='gray.700'>Update your profile to let us know you better.</Chakra.Text>
@@ -254,7 +257,7 @@ export default function UpdateUserData({ isOpen, onClose }) {
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Birthdate:</Chakra.FormLabel>
                                                 <Chakra.Input name="birthdate" value={formData.birthdate} onChange={handleChange} required type='date' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Age:</Chakra.FormLabel>
-                                                <Chakra.Input name="age" value={formData.age} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                                                <Chakra.Input name="age" value={formData.age} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 2) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Birthplace:</Chakra.FormLabel>
                                                 <Chakra.Input name="birthplace" value={formData.birthplace} onChange={handleChange} required h='2.5vw' fontSize='1vw' textTransform='capitalize' variant='filled' borderRadius='0' placeholder='...' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Address:</Chakra.FormLabel>
@@ -275,9 +278,9 @@ export default function UpdateUserData({ isOpen, onClose }) {
                                                     <option value='Widowed'>Widowed</option>
                                                 </Chakra.Select>
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>ZIP code:</Chakra.FormLabel>
-                                                <Chakra.Input name="zipCode" value={formData.zipCode} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                                                <Chakra.Input name="zipCode" value={formData.zipCode} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 8) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Contact number:</Chakra.FormLabel>
-                                                <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={handleChange} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
+                                                <Chakra.Input name="contactNumber" value={formData.contactNumber} onChange={(e) => { const value = e.target.value; if (/^\d*$/.test(value) && value.length <= 11) { handleChange(e) } }} required type='number' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                                 <Chakra.FormLabel m='4% 0 0 0' fontSize='.9vw' color='gray.700'>Email address:</Chakra.FormLabel>
                                                 <Chakra.Input name="emailAddress" value={formData.emailAddress} onChange={handleChange} required type='email' h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' />
                                             </Chakra.Box>
@@ -379,7 +382,7 @@ export default function UpdateUserData({ isOpen, onClose }) {
 
                                         <hr />
                                         <Chakra.Box mt='2%' display='flex' justifyContent='right'>
-                                            <Chakra.Button type='submit' h='1.8vw' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>update</Chakra.Button>
+                                            <Chakra.Button type='submit' h='1.8vw' colorScheme='teal' fontSize='.9vw' fontWeight='400' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>Save changes</Chakra.Button>
                                         </Chakra.Box>
                                         <Chakra.Input hidden name="status" value={formData.status} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
                                         <Chakra.Input hidden name="userType" value={formData.userType} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />

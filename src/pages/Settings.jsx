@@ -87,16 +87,16 @@ export default function Settings() {
     }, [archive, navigate])
 
     return (
-        <Chakra.Box w='100%' h='100%' p='1% 35% 1% 35%' bg='#f0f1f5' display='flex' flexDirection='column' overflow='auto'>
+        <Chakra.Box w='100%' h='100%' p='1% 35% 1% 35%' bg='#f0f1f5' display='flex' alignItems='center' overflow='auto'>
             <Helmet>
                 <title>Settings - Tagongon Elementary School Profiling System</title>
                 <meta name="description" content="Access and update your account settings in the Tagongon Elementary School Profiling System to customize your preferences." />
                 <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
             </Helmet>
-            <Chakra.Box w='100%' p='4%' bg='white' display='flex' flexDirection='column' justifyContent='space-between'>
+            <Chakra.Box w='100%' p='4% 4% 7% 4%' bg='white' display='flex' flexDirection='column' justifyContent='space-between'>
                 <Chakra.Box w='100%' mb='1%' display='flex' alignItems='center'>
                     <Chakra.Box w='50%' display='flex' alignItems='center'>
-                        <SettingsIcon fontSize='.9vw' mr='1%' />
+                        <SettingsIcon fontSize='.9vw' mr='3%' />
                         <Chakra.Text as="h1" fontSize='1vw' fontWeight='700' color='gray.600'>Settings</Chakra.Text>
                     </Chakra.Box>
                     <Chakra.Box w='50%' display='flex' alignItems='center' justifyContent='right'>

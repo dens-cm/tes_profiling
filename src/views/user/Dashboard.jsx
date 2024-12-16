@@ -50,7 +50,11 @@ export default function Dashboard() {
           </Chakra.Box>
         ) : (
           <>
-            {teachers.filter((teacher) => teacher?.userType !== 'admin' && teacher?.status !== 'archive').map((teacher) => (
+            {teachers.filter((teacher) => teacher?.userType !== 'admin' && teacher?.status !== 'archive').sort((a, b) => {
+              const nameA = `${a?.firstName || ''} ${a?.middleName || ''} ${a?.lastName || ''} ${a?.extensionName || ''}`.toLowerCase()
+              const nameB = `${b?.firstName || ''} ${b?.middleName || ''} ${b?.lastName || ''} ${b?.extensionName || ''}`.toLowerCase()
+              return nameA.localeCompare(nameB)
+            }).map((teacher) => (
               <Chakra.Card key={teacher.id} w='15.5%' m='.5%' borderRadius='0' boxShadow='none' border='.1vw solid #f0f1f5' _hover={{ boxShadow: '.3vw .3vw .3vw rgb(105, 126, 116, .3)', bg: '#fbfbfc', transition: '.3s' }} transition='.3s'>
                 <Chakra.Image w='100%' h='14vw' objectFit='cover' src={teacher?.profileImageUrl} alt='teacher image' />
                 <Chakra.Box w='100%' p='5%'>

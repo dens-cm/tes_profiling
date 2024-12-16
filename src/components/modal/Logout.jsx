@@ -2,6 +2,7 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
 import { SmallCloseIcon } from '@chakra-ui/icons'
+import { BiLogOut } from "react-icons/bi"
 import { useAuth } from '../../config/Authentication'
 import Toast from '../Toast'
 
@@ -42,8 +43,8 @@ export default function Logout({ isOpen, onClose }) {
                     <Chakra.Text mt='5%' mb='5%' fontSize='1vw' fontWeight='400'>Are you sure you want to logout?</Chakra.Text>
                     <hr />
                     <Chakra.Box w='100%' mt='5%' mb='3%' display='flex' justifyContent='right'>
-                        <Chakra.Button onClick={handleLogout} isLoading={isLoading} h='1.7vw' fontSize='.8vw' colorScheme='red' borderRadius='0'>Logout</Chakra.Button>
-                        <Chakra.Button onClick={onClose} h='1.7vw' ml='1%' fontSize='.8vw' colorScheme='teal' borderRadius='0'>Cancel</Chakra.Button>
+                        <Chakra.Button onClick={handleLogout} leftIcon={<BiLogOut />} isLoading={isLoading} h='1.7vw' fontSize='.8vw' colorScheme='red' borderRadius='0'>Logout</Chakra.Button>
+                        <Chakra.Button onClick={onClose} h='1.7vw' ml='1.5%' fontSize='.8vw' colorScheme='teal' borderRadius='0'>Cancel</Chakra.Button>
                     </Chakra.Box>
                 </Chakra.ModalBody>
             </Chakra.ModalContent>

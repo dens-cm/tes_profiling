@@ -80,10 +80,12 @@ export default function Profile({ userData, userLoading, certificates }) {
             <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='space-between'>
               <Chakra.Text as="h1" fontSize='1vw' fontWeight='bold' color='gray.600'>Teacher Information</Chakra.Text>
               <Chakra.Box display='flex'>
-                <Chakra.Button onClick={handlePrint} h='1.5vw' mr='3%' fontSize='.7vw' fontWeight='500' colorScheme='blue' leftIcon={<BiPrinter />} isLoading={loading} isDisabled={userLoading} borderRadius='0'>Print</Chakra.Button>
+                <Chakra.Button onClick={handlePrint} h='1.5vw' mr='5%' fontSize='.7vw' fontWeight='500' colorScheme='blue' leftIcon={<BiPrinter />} isLoading={loading} isDisabled={userLoading} borderRadius='0'>Print</Chakra.Button>
                 <Chakra.Button onClick={onOpenUpdateUserData} h='1.5vw' fontSize='.7vw' fontWeight='500' colorScheme='teal' leftIcon={<BiEditAlt />} isDisabled={userLoading} borderRadius='0'>Edit</Chakra.Button>
               </Chakra.Box>
             </Chakra.Box>
+
+            <Chakra.Box w='100%' h='.1px' mt='1%' mb='1.5%' bg='gray'></Chakra.Box>
 
             <Chakra.Box w='100%' mt='.5%' p='3%' bg='white' display='flex' boxShadow='.2vw .2vw .3vw rgba(105, 126, 116, .1)'>
               <Chakra.Image w='8vw' h='8vw' border='.1vw solid #b9bab6' src={userData?.profileImageUrl} alt='profile image' />
