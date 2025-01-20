@@ -24,6 +24,8 @@
     "i": "^0.3.7",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
+    "lucide": "^0.473.0",
+    "lucide-react": "^0.473.0",
     "material-react-table": "^3.0.1",
     "npm": "^10.9.1",
     "react": "^18.3.1",
@@ -32,7 +34,9 @@
     "react-helmet-async": "^2.0.5",
     "react-icons": "^5.3.0",
     "react-router-dom": "^6.28.0",
+    "react-slick": "^0.30.3",
     "react-to-print": "^3.0.2",
+    "slick-carousel": "^1.8.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

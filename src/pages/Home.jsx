@@ -212,7 +212,7 @@ export default function Home() {
                                     </Chakra.Menu>
                                 </Chakra.Box>
                             </Chakra.Box>
-                            <Chakra.Box w='100%' h='93%' display='flex'>
+                            <Chakra.Box w='100%' h='93%' display='flex' bg='white'>
                                 {userData?.userType === 'admin' ?
                                     (
                                         <>

@@ -62,7 +62,7 @@ export default function Profile({ userData, userLoading, certificates }) {
   })
 
   return (
-    <Chakra.Box w='100%' p='2% 15% 2% 15%'>
+    <Chakra.Box w='100%' p='2% 15% 2% 15%' bg='#f0f1f5'>
       <Helmet>
         <title>Profile - Tagongon Elementary School Profiling System</title>
         <meta name="description" content="View and update your personal profile information in the Tagongon Elementary School Profiling System to keep your details up to date." />
