@@ -63,7 +63,7 @@ export default function Post() {
                 <meta name="description" content="Welcome to the Post page of the Tagongon Elementary School Profiling System." />
                 <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
             </Helmet>
-            <Chakra.Box w='100%'>
+            <Chakra.Box w='100%' p='1vw' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)' border='.1vw solid rgba(0, 0, 0, 0.05)'>
                 <Chakra.Text as='h1' fontSize='.9vw' fontWeight='500'>Dashboard Images</Chakra.Text>
                 <hr />
                 {
@@ -85,8 +85,8 @@ export default function Post() {
                                             ) : (
                                                 <>
                                                     {existingImages.map((image) => (
-                                                        <Chakra.Card key={image.id} w='18.5%' m='1.9% .5% .5% .5%' borderRadius='0'>
-                                                            <Chakra.Image w='100%' h='8vw' objectFit='cover' src={image.url} alt='dashboard image' />
+                                                        <Chakra.Card key={image.id} w='18.5%' m='1.9% .5% .5% .5%' borderRadius='0' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)'>
+                                                            <Chakra.Image w='100%' h='8vw' objectFit='contain' src={image.url} alt='dashboard image' />
                                                             <Chakra.Button onClick={() => handleDelete(image.id, image.url)} isLoading={loadingImageId === image.id} h='1.8vw' mt='.7vw' colorScheme='red' fontSize='.8vw' borderRadius='0' leftIcon={<Trash2 size='.8vw' strokeWidth='.2vw' />}>Delete</Chakra.Button>
                                                         </Chakra.Card>
                                                     ))}
@@ -105,8 +105,8 @@ export default function Post() {
                         </Chakra.Box>
                     )
                 }
-
                 <hr />
+                <Chakra.Text fontSize='.9vw' mt='.5vw' mb='.5vw'><i><b>Note:</b></i> <i>You can upload a maximum of 10 images only. Please delete existing images if you wish to add more.</i></Chakra.Text>
                 <Chakra.Box w='100%' mt='1vw' display='flex' justifyContent='right'>
                     <Chakra.Button onClick={onOpenAddDashboardImages} isDisabled={existingImages.length === 10} h='1.6vw' colorScheme='blue' fontSize='.7vw' borderRadius='0' rightIcon={<Plus size='.7vw' strokeWidth='.3vw' />}>Add</Chakra.Button>
                 </Chakra.Box>

@@ -223,7 +223,7 @@ export default function ViewTeacherData({ isOpen, onClose, user, userType }) {
                         <Chakra.Box w='45%' p='3%' bg='white' display='flex' flexDirection='column' borderRadius='0'>
                             <Chakra.Box w='100%' p='2%' bg='white' borderRadius='0'>
                                 <Chakra.Box mb='3%' display='flex'>
-                                    <Chakra.Image src={user?.profileImageUrl} w='6vw' h='6vw' borderRadius='0' />
+                                    <Chakra.Image src={user?.profileImageUrl} w='6vw' h='6vw' borderRadius='0' border='.1vw solid black'/>
                                     <Chakra.Box ml='2%'>
                                         <Chakra.Text fontSize='1.5vw' fontWeight='700' textTransform='capitalize'>{`${user?.firstName} ${user?.middleName} ${user?.lastName} ${user?.extensionName}`}</Chakra.Text>
                                         <Chakra.Text fontSize='1.2vw' fontWeight='400' textTransform='capitalize'>{`${user?.adviser}`}</Chakra.Text>

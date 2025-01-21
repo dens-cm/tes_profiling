@@ -79,6 +79,7 @@ export default function AddDashboardImages({ isOpen, onClose }) {
             } finally {
                 showToast({ description: `${fileName} Saved successfully`, status: 'success', variant: 'solid', position: 'top' })
                 setLoading(false)
+                closeModal()
             }
         }
 

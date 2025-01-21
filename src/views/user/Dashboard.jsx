@@ -65,12 +65,15 @@ export default function Dashboard() {
           <meta name="description" content="Welcome to the Dashboard of the Tagongon Elementary School Profiling System, where you can manage teacher data, view, and access system." />
           <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
         </Helmet>
-        <Chakra.Box w='100%' mb='2%' p='.3vw' bg='#094333' display='flex' alignItems='center' justifyContent='left'>
+        <Chakra.Box w='100%' mb='.4%' p='.3vw' bg='#094333' display='flex' alignItems='center' justifyContent='left'>
           <Chakra.Icon mr='.3vw' as={GraduationCap} fontSize='.9vw' color='white' />
           <Chakra.Text color='white' fontSize='.7vw' fontWeight='500' textTransform='uppercase'>Tagongon Elementary School - Tagbina District I</Chakra.Text>
         </Chakra.Box>
+        <Chakra.Box w='100%' mb='2%' display='flex' flexDirection='column'>
+          <Chakra.Box w='100%' h='.1vw' bg='#094333'></Chakra.Box>
+        </Chakra.Box>
         <Chakra.Box w='100%' mt='1%' mb='5%' display='flex' alignItems='center' justifyContent='center'>
-          <Chakra.Box w='95%' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)' cursor='pointer'>
+          <Chakra.Box w='95%' bg='white' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)' cursor='pointer'>
             {sliderLoading ? (
               <Chakra.Box w="100%" display="flex" justifyContent="center" alignItems="center">
                 <Chakra.Spinner w='1vw' h='1vw' thickness='.1vw' />
@@ -80,18 +83,14 @@ export default function Dashboard() {
               <>
                 {
                   imageUrls.length === 0 ? (
-                    <Slider {...settings}>
-                      {imageUrls.map((imgSrc, index) => (
-                        <Chakra.Box key={index} w="100%" display="flex" alignItems="center" justifyContent="center">
-                          <Chakra.Image objectFit="cover" src={imgSrc} alt={`image${index + 1}`} w="100%" h="30vw" />
-                        </Chakra.Box>
-                      ))}
-                    </Slider>
+                    <Chakra.Box w='100%' mt='.1vw' mb='1vw' pt='1vw' display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
+                      <Chakra.Text fontSize='.9vw' fontStyle='italic'>No images found.</Chakra.Text>
+                    </Chakra.Box>
                   ) : (
                     <Slider {...settings}>
                       {imageUrls.map((imgSrc, index) => (
                         <Chakra.Box key={index} w="100%" display="flex" alignItems="center" justifyContent="center">
-                          <Chakra.Image objectFit="cover" src={imgSrc} alt={`image${index + 1}`} w="100%" h="30vw" />
+                          <Chakra.Image objectFit='contain' src={imgSrc} alt={`image${index + 1}`} w="100%" h="30vw" />
                         </Chakra.Box>
                       ))}
                     </Slider>
@@ -101,8 +100,7 @@ export default function Dashboard() {
             )}
           </Chakra.Box>
         </Chakra.Box>
-        <Chakra.Text as="h1" mb='.4%' fontSize='.9vw' fontWeight='bold' color='white' bg='#094333' p='.5% .5% .5% 1%' display='flex' alignItems='center'><Chakra.Text mr='.5%'><UsersRound size='1vw' strokeWidth='.2vw' /></Chakra.Text>Tagongon Elementary School Teachers</Chakra.Text>
-        <hr />
+        <Chakra.Text as="h1" mb='.4%' fontSize='.7vw' fontWeight='500' color='white' textTransform='uppercase' bg='#094333' p='.3vw' display='flex' alignItems='center'><Chakra.Text mr='.5%'><UsersRound size='.8vw' /></Chakra.Text>Tagongon Elementary School Teachers</Chakra.Text>
         <Chakra.Box w='100%' display='flex' flexDirection='column'>
           <Chakra.Box w='100%' h='.1vw' bg='#094333'></Chakra.Box>
         </Chakra.Box>
@@ -114,7 +112,7 @@ export default function Dashboard() {
             </Chakra.Box>
           ) : teachers.length === 0 ? (
             <Chakra.Box w='100%' display='flex' alignItems='center' justifyContent='center'>
-              <Chakra.Text fontSize='.9vw' fontWeight='bold' fontStyle='italic' color='gray.500'>
+              <Chakra.Text fontSize='.9vw' fontWeight='bold' fontStyle='italic' color='black'>
                 No teacher found.
               </Chakra.Text>
             </Chakra.Box>
@@ -160,7 +158,6 @@ export default function Dashboard() {
           </Chakra.Box>
         </Chakra.Box>
       </Chakra.Box>
-
     </Chakra.Box >
   )
 }

@@ -108,7 +108,7 @@ export default function ConfimUserDelete({ isOpen, onClose, user }) {
                     <hr />
                     <Chakra.Box w='100%' mt='5%' mb='3%' display='flex' justifyContent='right'>
                         <Chakra.Button onClick={handleDelete} isLoading={loading} leftIcon={<HiTrash />} h='1.7vw' fontSize='.8vw' colorScheme='red' borderRadius='0'>Delete</Chakra.Button>
-                        <Chakra.Button onClick={onClose} h='1.7vw' ml='1%' fontSize='.8vw' colorScheme='teal' borderRadius='0'>Cancel</Chakra.Button>
+                        <Chakra.Button onClick={onClose} isDisabled={loading} h='1.7vw' ml='1%' fontSize='.8vw' colorScheme='teal' borderRadius='0'>Cancel</Chakra.Button>
                     </Chakra.Box>
                 </Chakra.ModalBody>
             </Chakra.ModalContent>
