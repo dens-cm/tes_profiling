@@ -6,23 +6,15 @@ import * as Chakra from '@chakra-ui/react'
 import { Helmet } from 'react-helmet'
 import { collection, query, onSnapshot } from 'firebase/firestore'
 import { firestoreDB } from '../../config/FirebaseConfig'
-import { Rocket, MessageCircleHeart, HeartHandshake, UsersRound } from 'lucide-react'
+import { Rocket, MessageCircleHeart, HeartHandshake, UsersRound, GraduationCap } from 'lucide-react'
 import TES_image from '../../assets/TES_image.jpg'
-import image1 from '../../assets/image1.jpg'
-import image2 from '../../assets/image2.jpg'
-import image3 from '../../assets/image3.jpg'
-import image4 from '../../assets/image4.jpg'
-import image5 from '../../assets/image5.jpg'
-import image6 from '../../assets/image6.jpg'
-import image7 from '../../assets/image7.jpg'
-import image8 from '../../assets/image8.jpg'
-import image9 from '../../assets/image9.jpg'
-import image10 from '../../assets/image10.jpg'
 
 export default function Dashboard() {
 
   const [teachers, setTeachers] = React.useState([])
   const [loading, setLoading] = React.useState(false)
+  const [imageUrls, setImageUrls] = React.useState([])
+  const [sliderLoading, setSliderLoading] = React.useState(true)
 
   React.useEffect(() => {
     const teachersRef = collection(firestoreDB, `users`)
@@ -42,6 +34,7 @@ export default function Dashboard() {
     return () => unsubscribe()
   }, [])
 
+  // Slider settings
   const settings = {
     dots: true,
     infinite: true,
@@ -53,6 +46,17 @@ export default function Dashboard() {
     arrows: false
   }
 
+  React.useEffect(() => {
+    const imagesCollection = collection(firestoreDB, 'dashboard_images')
+    const unsubscribe = onSnapshot(imagesCollection, (querySnapshot) => {
+      const images = querySnapshot.docs.map((doc) => doc.data().url)
+      setImageUrls(images)
+      setSliderLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
   return (
     <Chakra.Box w='100%' h='100%' backgroundImage={TES_image} userSelect='none'>
       <Chakra.Box w='100%' h='100%' p='1.5%' bg='rgba(255, 255, 255, .9)' display='flex' flexDirection='column' overflow='auto'>
@@ -61,15 +65,40 @@ export default function Dashboard() {
           <meta name="description" content="Welcome to the Dashboard of the Tagongon Elementary School Profiling System, where you can manage teacher data, view, and access system." />
           <link rel="icon" type="image/svg+xml" href="/tes_logo.png" />
         </Helmet>
+        <Chakra.Box w='100%' mb='2%' p='.3vw' bg='#094333' display='flex' alignItems='center' justifyContent='left'>
+          <Chakra.Icon mr='.3vw' as={GraduationCap} fontSize='.9vw' color='white' />
+          <Chakra.Text color='white' fontSize='.7vw' fontWeight='500' textTransform='uppercase'>Tagongon Elementary School - Tagbina District I</Chakra.Text>
+        </Chakra.Box>
         <Chakra.Box w='100%' mt='1%' mb='5%' display='flex' alignItems='center' justifyContent='center'>
           <Chakra.Box w='95%' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)' cursor='pointer'>
-            <Slider {...settings}>
-              {[image1, image2, image3, image4, image5, image6, image7, image8, image9, image10].map((imgSrc, index) => (
-                <Chakra.Box key={index} w="100%" bg="green" display="flex" alignItems="center" justifyContent="center">
-                  <Chakra.Image objectFit="cover" src={imgSrc} alt={`image${index + 1}`} w="100%" h="30vw"/>
-                </Chakra.Box>
-              ))}
-            </Slider>
+            {sliderLoading ? (
+              <Chakra.Box w="100%" display="flex" justifyContent="center" alignItems="center">
+                <Chakra.Spinner w='1vw' h='1vw' thickness='.1vw' />
+                <Chakra.Text ml="1vw" fontSize='.9vw' fontStyle='italic'>Loading...</Chakra.Text>
+              </Chakra.Box>
+            ) : (
+              <>
+                {
+                  imageUrls.length === 0 ? (
+                    <Slider {...settings}>
+                      {imageUrls.map((imgSrc, index) => (
+                        <Chakra.Box key={index} w="100%" display="flex" alignItems="center" justifyContent="center">
+                          <Chakra.Image objectFit="cover" src={imgSrc} alt={`image${index + 1}`} w="100%" h="30vw" />
+                        </Chakra.Box>
+                      ))}
+                    </Slider>
+                  ) : (
+                    <Slider {...settings}>
+                      {imageUrls.map((imgSrc, index) => (
+                        <Chakra.Box key={index} w="100%" display="flex" alignItems="center" justifyContent="center">
+                          <Chakra.Image objectFit="cover" src={imgSrc} alt={`image${index + 1}`} w="100%" h="30vw" />
+                        </Chakra.Box>
+                      ))}
+                    </Slider>
+                  )
+                }
+              </>
+            )}
           </Chakra.Box>
         </Chakra.Box>
         <Chakra.Text as="h1" mb='.4%' fontSize='.9vw' fontWeight='bold' color='white' bg='#094333' p='.5% .5% .5% 1%' display='flex' alignItems='center'><Chakra.Text mr='.5%'><UsersRound size='1vw' strokeWidth='.2vw' /></Chakra.Text>Tagongon Elementary School Teachers</Chakra.Text>
@@ -132,6 +161,6 @@ export default function Dashboard() {
         </Chakra.Box>
       </Chakra.Box>
 
-    </Chakra.Box>
+    </Chakra.Box >
   )
 }

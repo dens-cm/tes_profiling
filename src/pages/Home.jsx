@@ -4,6 +4,7 @@ import * as Chakra from '@chakra-ui/react'
 import { Helmet } from 'react-helmet'
 import { ChevronDownIcon, SettingsIcon } from '@chakra-ui/icons'
 import { TiMail, TiInputChecked, TiMap, TiUserOutline, TiThLargeOutline, TiGroupOutline, TiFolder } from "react-icons/ti"
+import { PencilLine } from 'lucide-react'
 import { BiSolidLogOut } from "react-icons/bi"
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../config/Authentication'
@@ -15,6 +16,7 @@ import Trainings from '../views/user/Trainings'
 import Archived from '../views/user/Archived'
 import Teachers from '../views/admin/Teachers'
 import Archives from '../views/admin/Archives'
+import Post from '../views/admin/Post'
 import Logout from '../components/modal/Logout'
 import Toast from '../components/Toast'
 import SchoolLogo from '../assets/tes_logo.png'
@@ -26,7 +28,7 @@ export default function Home() {
     const { userData, userLoading, archive } = useFetchUserData(currentUser)
     const { certificates, loadingCertificates, refreshCertificates } = useFetchCertificates(currentUser.uid)
     const [isEmailVerified, setIsEmailVerified] = React.useState(false)
-    const [activeView, setActiveView] = React.useState()
+    const [activeView, setActiveView] = React.useState('dashboard')
     const { isOpen: isOpenLogoutModal, onOpen: onOpenLogoutModal, onClose: onCloseLogoutModal } = Chakra.useDisclosure()
     const navigate = useNavigate()
     const showToast = Toast()
@@ -86,17 +88,6 @@ export default function Home() {
         }
     }
 
-    React.useEffect(() => {
-        if (userData?.userType === 'admin') {
-            setActiveView('listOfTeachers')
-        }
-
-        else {
-            setActiveView('dashboard')
-        }
-
-    }, [userData])
-
     return (
         <Chakra.Box w='100%' h='100%' bg='#f0f1f5'>
             {
@@ -122,7 +113,7 @@ export default function Home() {
                                 <Chakra.Text fontSize='1vw' mt='4%' fontStyle='italic'>Please check your email inbox for verification: <strong>{currentUser.email}</strong></Chakra.Text>
                                 <Chakra.Text onClick={resendVerification} fontSize='.9vw' mt='6%' fontStyle='italic' color='blue' cursor='pointer'>Resend email verification link</Chakra.Text>
                                 <Chakra.Button onClick={() => window.location.reload()} w='100%' h='2.3vw' mt='2%' mb='2%' fontSize='.8vw' colorScheme='blue' rightIcon={<TiInputChecked fontSize='1.1vw' />} borderRadius='0'>I have verified my email</Chakra.Button>
-                                <hr/>
+                                <hr />
                                 <Chakra.Button onClick={logout} w='100%' h='2.3vw' mt='2%' fontSize='.8vw' colorScheme='red' rightIcon={<BiSolidLogOut fontSize='.8vw' />} borderRadius='0'>Logout</Chakra.Button>
                             </Chakra.Box>
                         </Chakra.Box>
@@ -148,20 +139,34 @@ export default function Home() {
                                             (
                                                 <>
                                                     {
-                                                        activeView === 'listOfTeachers' ?
+                                                        activeView === 'dashboard' ?
                                                             (
                                                                 <>
-                                                                    <Chakra.Text as="h1" mr='1%' fontSize='1.3vw'><TiGroupOutline /></Chakra.Text>
-                                                                    List of Teachers
+                                                                    <Chakra.Text as="h1" mr='1%' fontSize='1.3vw'><TiMap/></Chakra.Text>
+                                                                    Dashboard
                                                                 </>
                                                             ) :
-                                                            activeView === 'archives' ?
+                                                            activeView === 'post' ?
                                                                 (
                                                                     <>
-                                                                        <Chakra.Text as="h1" mr='1%' fontSize='1.2vw'><TiFolder /></Chakra.Text>
-                                                                        Archives
+                                                                        <Chakra.Text as="h1" mr='1%' fontSize='1.3vw'><PencilLine size='1vw'/></Chakra.Text>
+                                                                        Post
                                                                     </>
-                                                                ) : null
+                                                                ) :
+                                                                activeView === 'listOfTeachers' ?
+                                                                    (
+                                                                        <>
+                                                                            <Chakra.Text as="h1" mr='1%' fontSize='1.3vw'><TiGroupOutline /></Chakra.Text>
+                                                                            List of Teachers
+                                                                        </>
+                                                                    ) :
+                                                                    activeView === 'archives' ?
+                                                                        (
+                                                                            <>
+                                                                                <Chakra.Text as="h1" mr='1%' fontSize='1.2vw'><TiFolder /></Chakra.Text>
+                                                                                Archives
+                                                                            </>
+                                                                        ) : null
                                                     }
                                                 </>
                                             )
@@ -217,8 +222,10 @@ export default function Home() {
                                     (
                                         <>
                                             <Chakra.Box w='20%' h='100%' p='2% 0 0 0' bg='#094333'>
-                                                <Chakra.Button onClick={() => { setActiveView('listOfTeachers') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'listOfTeachers' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'listOfTeachers' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiGroupOutline size='1.2vw' />} borderRadius='0'>List of Teachers</Chakra.Button>
-                                                <Chakra.Button onClick={() => { setActiveView('archives') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'archives' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'archives' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiFolder size='1.2vw' />} borderRadius='0'>Archives</Chakra.Button>
+                                                <Chakra.Button onClick={() => { setActiveView('dashboard') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'dashboard' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'dashboard' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiMap size='1vw' />} borderRadius='0'>Dashboard</Chakra.Button>
+                                                <Chakra.Button onClick={() => { setActiveView('post') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'post' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'post' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<PencilLine size='1vw' />} borderRadius='0'>Post</Chakra.Button>
+                                                <Chakra.Button onClick={() => { setActiveView('listOfTeachers') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'listOfTeachers' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'listOfTeachers' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiGroupOutline size='1vw' />} borderRadius='0'>List of Teachers</Chakra.Button>
+                                                <Chakra.Button onClick={() => { setActiveView('archives') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'archives' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'archives' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiFolder size='1vw' />} borderRadius='0'>Archives</Chakra.Button>
                                             </Chakra.Box>
                                         </>
                                     )
@@ -264,18 +271,23 @@ export default function Home() {
                                             )
                                                 :
                                                 (
-                                                    <Trainings certificates={certificates} loadingCertificates={loadingCertificates} refreshCertificates={refreshCertificates} userType={userData}/>
+                                                    <Trainings certificates={certificates} loadingCertificates={loadingCertificates} refreshCertificates={refreshCertificates} userType={userData} />
                                                 )}
+                                        </Chakra.Box>
+                                    )}
+                                    {activeView === 'post' && (
+                                        <Chakra.Box w='100%' h='100%'>
+                                            <Post/>
                                         </Chakra.Box>
                                     )}
                                     {activeView === 'listOfTeachers' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            <Teachers userType={userData}/>
+                                            <Teachers userType={userData} />
                                         </Chakra.Box>
                                     )}
                                     {activeView === 'archives' && (
                                         <Chakra.Box w='100%' h='100%'>
-                                            <Archives userType={userData}/>
+                                            <Archives userType={userData} />
                                         </Chakra.Box>
                                     )}
                                 </Chakra.Box>
