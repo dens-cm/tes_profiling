@@ -88,8 +88,6 @@ export default function Home() {
         }
     }
 
-    
-
     return (
         <Chakra.Box w='100%' h='100%' bg='#f0f1f5'>
             {
