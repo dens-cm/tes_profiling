@@ -6,7 +6,7 @@ import * as Chakra from '@chakra-ui/react'
 import { Helmet } from 'react-helmet'
 import { collection, query, onSnapshot } from 'firebase/firestore'
 import { firestoreDB } from '../../config/FirebaseConfig'
-import { Rocket, MessageCircleHeart, HeartHandshake, UsersRound, GraduationCap } from 'lucide-react'
+import { Rocket, MessageCircleHeart, HeartHandshake, UsersRound, GraduationCap, Mails } from 'lucide-react'
 import TES_image from '../../assets/TES_image.jpg'
 
 export default function Dashboard() {
@@ -15,6 +15,9 @@ export default function Dashboard() {
   const [loading, setLoading] = React.useState(false)
   const [imageUrls, setImageUrls] = React.useState([])
   const [sliderLoading, setSliderLoading] = React.useState(true)
+  const [updates, setUpdates] = React.useState([])
+  const [isPostImageOpen, setIsPostImageOpen] = React.useState(false)
+  const [selectedPostImage, setSelectedPostImage] = React.useState(null)
 
   React.useEffect(() => {
     const teachersRef = collection(firestoreDB, `users`)
@@ -56,6 +59,29 @@ export default function Dashboard() {
 
     return () => unsubscribe()
   }, [])
+
+  React.useEffect(() => {
+    const unsubscribe = onSnapshot(collection(firestoreDB, 'updates'), (snapshot) => {
+      const updatesList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        timestamp: doc.data().timestamp?.toDate(),
+      }))
+      setUpdates(updatesList)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  const viewImage = (imageUrl) => {
+    setSelectedPostImage(imageUrl)
+    setIsPostImageOpen(true)
+  }
+
+  const closeImage = () => {
+    setSelectedPostImage(null)
+    setIsPostImageOpen(false)
+  }
 
   return (
     <Chakra.Box w='100%' h='100%' backgroundImage={TES_image} userSelect='none'>
@@ -100,7 +126,7 @@ export default function Dashboard() {
             )}
           </Chakra.Box>
         </Chakra.Box>
-        <Chakra.Text as="h1" mb='.4%' fontSize='.7vw' fontWeight='500' color='white' textTransform='uppercase' bg='#094333' p='.3vw' display='flex' alignItems='center'><Chakra.Text mr='.5%'><UsersRound size='.8vw' /></Chakra.Text>Tagongon Elementary School Teachers</Chakra.Text>
+        <Chakra.Text as="h1" mb='.4%' fontSize='.7vw' fontWeight='500' color='white' textTransform='uppercase' bg='#094333' p='.3vw' display='flex' alignItems='center'><Chakra.Text mr='.5%'><UsersRound size='.8vw' /></Chakra.Text>Tagongon Elementary School - Teachers</Chakra.Text>
         <Chakra.Box w='100%' display='flex' flexDirection='column'>
           <Chakra.Box w='100%' h='.1vw' bg='#094333'></Chakra.Box>
         </Chakra.Box>
@@ -157,7 +183,60 @@ export default function Dashboard() {
             <Chakra.Text mt='1.5%' fontSize='.9vw' p='0 3% 0 3%' textAlign='justify'> <b>• Maka-bansa</b></Chakra.Text>
           </Chakra.Box>
         </Chakra.Box>
+        <Chakra.Text as="h1" mt='2.5vw' mb='.4%' fontSize='.7vw' fontWeight='500' color='white' textTransform='uppercase' bg='#094333' p='.3vw' display='flex' alignItems='center'><Chakra.Text mr='.5%'><Mails size='.8vw' /></Chakra.Text>Tagongon Elementary School - Updates</Chakra.Text>
+        <Chakra.Box w='100%' display='flex' flexDirection='column'>
+          <Chakra.Box w='100%' h='.1vw' bg='#094333'></Chakra.Box>
+        </Chakra.Box>
+        <Chakra.Box w='100%' mb='2.5vw' p='1% .4% 1% .4%' display='flex' justifyContent='space-between'>
+          <Chakra.Box w='100%' display='flex' flexWrap="wrap" justifyContent='space-between'>
+            {updates.length === 0 ? (
+              <Chakra.Text>No updates available</Chakra.Text>
+            ) : (
+              updates.map((update, index) => (
+                <Chakra.Card key={index} w='49.3%' mt='1vw' p='1.5vw' borderRadius='0' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)'>
+                  <Chakra.Heading fontSize='1vw' textTransform='capitalize'>{update.header}</Chakra.Heading>
+                  <Chakra.Box w='100%' mt='1%'>
+                    <Chakra.Box w='100%' fontSize='.9vw'>
+                      <Chakra.Text fontSize='.9vw' mt='.5vw' fontStyle='italic'>Content:</Chakra.Text>
+                      <Chakra.Text fontSize='.9vw' mt='.3vw' pl='1vw' pr='1vw' textAlign='justify'>{update.content}</Chakra.Text>
+                    </Chakra.Box>
+                    <Chakra.Box w='100%' p='0 1vw 0 1vw' mt='1.5vw' display='flex' flexWrap="wrap" alignItems='center'>
+                      {update.images && update.images.length > 0 ? (
+                        update.images.map((imageUrl, imgIndex) => (
+                          <Chakra.Image key={imgIndex} onClick={() => viewImage(imageUrl)} cursor='pointer' h='10vw' m='.1vw' objectFit='cover' src={imageUrl} alt={`Update Image ${imgIndex + 1}`} border='.1vw solid rgba(0, 0, 0, 0.43)' _hover={{ boxShadow: '.3vw .3vw .3vw rgb(105, 126, 116, .3)', transition: '.3s' }} transition='.3s' />
+                        ))
+                      ) : (
+                        <Chakra.Text>No Images</Chakra.Text>
+                      )}
+                    </Chakra.Box>
+                  </Chakra.Box>
+                  <Chakra.Text mt='1.5vw' pl='1vw' pr='1vw' fontSize='.7vw' fontStyle='italic'><b>Date Posted:</b> {update.timestamp ? new Date(update.timestamp).toLocaleDateString() : 'Unknown'}</Chakra.Text>
+                </Chakra.Card>
+              ))
+            )}
+          </Chakra.Box>
+        </Chakra.Box>
       </Chakra.Box>
+
+      <Chakra.Modal isOpen={isPostImageOpen} onClose={closeImage} size="xl">
+        <Chakra.ModalOverlay />
+        <Chakra.ModalContent borderRadius='0'>
+          <Chakra.ModalCloseButton />
+          <Chakra.ModalHeader>
+            <Chakra.Heading fontSize='.9vw'>Post Image</Chakra.Heading>
+          </Chakra.ModalHeader>
+          <hr />
+          <Chakra.ModalBody>
+            {selectedPostImage && (
+              <Chakra.Image src={selectedPostImage} alt="Selected Image" objectFit="contain" w="100%" />
+            )}
+          </Chakra.ModalBody>
+          <hr />
+          <Chakra.ModalFooter>
+            <Chakra.Button onClick={() => closeImage()} h='1.8vw' fontSize='.8vw' fontWeight='400' colorScheme='blue' borderRadius='0'>Okay</Chakra.Button>
+          </Chakra.ModalFooter>
+        </Chakra.ModalContent>
+      </Chakra.Modal>
     </Chakra.Box >
   )
 }

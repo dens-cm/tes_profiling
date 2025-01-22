@@ -88,6 +88,8 @@ export default function Home() {
         }
     }
 
+    
+
     return (
         <Chakra.Box w='100%' h='100%' bg='#f0f1f5'>
             {
@@ -222,7 +224,7 @@ export default function Home() {
                                     (
                                         <>
                                             <Chakra.Box w='20%' h='100%' p='2% 0 0 0' bg='#094333'>
-                                                <Chakra.Button onClick={() => { setActiveView('dashboard') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'dashboard' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'dashboard' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiMap size='1vw' />} borderRadius='0'>Dashboard</Chakra.Button>
+                                                <Chakra.Button onClick={() => { setActiveView('dashboard') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'dashboard' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'dashboard' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiMap size='1.1vw' />} borderRadius='0'>Dashboard</Chakra.Button>
                                                 <Chakra.Button onClick={() => { setActiveView('post') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'post' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'post' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<PencilLine size='1vw' />} borderRadius='0'>Post</Chakra.Button>
                                                 <Chakra.Button onClick={() => { setActiveView('listOfTeachers') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'listOfTeachers' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'listOfTeachers' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiGroupOutline size='1vw' />} borderRadius='0'>List of Teachers</Chakra.Button>
                                                 <Chakra.Button onClick={() => { setActiveView('archives') }} w='100%' pl='15%' fontSize='.9vw' fontWeight='400' color='white' display='flex' alignItems='center' justifyContent='left' bg={activeView === 'archives' ? 'rgba(227, 138, 43, .3)' : '#0000'} _hover={{ bg: 'rgba(227, 138, 43, 1)' }} borderRight={activeView === 'archives' ? '.3vw solid rgba(227, 138, 43, 1)' : '#0000'} leftIcon={<TiFolder size='1vw' />} borderRadius='0'>Archives</Chakra.Button>

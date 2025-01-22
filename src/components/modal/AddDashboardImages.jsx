@@ -96,7 +96,7 @@ export default function AddDashboardImages({ isOpen, onClose }) {
     return (
         <Chakra.Modal isOpen={isOpen} onClose={onClose} isCentered size='md' closeOnOverlayClick={false}>
             <Chakra.ModalOverlay />
-            <Chakra.ModalContent>
+            <Chakra.ModalContent borderRadius='0'>
                 <Chakra.ModalHeader display='flex' alignItems='center'>
                     <Chakra.Icon mr='.3vw' as={ImagePlus} fontSize='.8vw' />
                     <Chakra.Heading fontSize='.8vw' textTransform='uppercase'>Add Dashboard Images</Chakra.Heading>
