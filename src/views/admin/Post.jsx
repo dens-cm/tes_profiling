@@ -193,7 +193,7 @@ export default function Post() {
                                                 <Chakra.Image key={imgIndex} onClick={() => viewImage(imageUrl)} cursor='pointer' h='10vw' m='.1vw' objectFit='cover' src={imageUrl} alt={`Update Image ${imgIndex + 1}`} border='.1vw solid rgba(0, 0, 0, 0.43)' _hover={{ boxShadow: '.3vw .3vw .3vw rgb(105, 126, 116, .3)', transition: '.3s' }} transition='.3s' />
                                             ))
                                         ) : (
-                                            <Chakra.Text>No Images</Chakra.Text>
+                                            <Chakra.Text fontSize='.8vw' fontStyle='italic'>No Images</Chakra.Text>
                                         )}
                                     </Chakra.Box>
                                 </Chakra.Box>

@@ -190,15 +190,15 @@ export default function Dashboard() {
         <Chakra.Box w='100%' mb='2.5vw' p='1% .4% 1% .4%' display='flex' justifyContent='space-between'>
           <Chakra.Box w='100%' display='flex' flexWrap="wrap" justifyContent='space-between'>
             {updates.length === 0 ? (
-              <Chakra.Text>No updates available</Chakra.Text>
+              <Chakra.Text fontSize='.9vw' ml='.4%'>No updates available</Chakra.Text>
             ) : (
               updates.map((update, index) => (
                 <Chakra.Card key={index} w='49.3%' mt='1vw' p='1.5vw' borderRadius='0' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .3)'>
-                  <Chakra.Heading fontSize='1vw' textTransform='capitalize'>{update.header}</Chakra.Heading>
+                  <Chakra.Heading mb='.8%' fontSize='1vw' textAlign='justify' textTransform='capitalize'>{update.header}</Chakra.Heading>
+                  <hr />
                   <Chakra.Box w='100%' mt='1%'>
                     <Chakra.Box w='100%' fontSize='.9vw'>
-                      <Chakra.Text fontSize='.9vw' mt='.5vw' fontStyle='italic'>Content:</Chakra.Text>
-                      <Chakra.Text fontSize='.9vw' mt='.3vw' pl='1vw' pr='1vw' textAlign='justify'>{update.content}</Chakra.Text>
+                      <Chakra.Text fontSize='.9vw' mt='.3vw' pl='1vw' pr='1vw' textAlign='justify' style={{ whiteSpace: 'pre-wrap' }}>{update.content}</Chakra.Text>
                     </Chakra.Box>
                     <Chakra.Box w='100%' p='0 1vw 0 1vw' mt='1.5vw' display='flex' flexWrap="wrap" alignItems='center'>
                       {update.images && update.images.length > 0 ? (
@@ -206,10 +206,11 @@ export default function Dashboard() {
                           <Chakra.Image key={imgIndex} onClick={() => viewImage(imageUrl)} cursor='pointer' h='10vw' m='.1vw' objectFit='cover' src={imageUrl} alt={`Update Image ${imgIndex + 1}`} border='.1vw solid rgba(0, 0, 0, 0.43)' _hover={{ boxShadow: '.3vw .3vw .3vw rgb(105, 126, 116, .3)', transition: '.3s' }} transition='.3s' />
                         ))
                       ) : (
-                        <Chakra.Text>No Images</Chakra.Text>
+                        <Chakra.Text mb='.8%' fontSize='.8vw' fontStyle='italic'></Chakra.Text>
                       )}
                     </Chakra.Box>
                   </Chakra.Box>
+                  <hr/>
                   <Chakra.Text mt='1.5vw' pl='1vw' pr='1vw' fontSize='.7vw' fontStyle='italic'><b>Date Posted:</b> {update.timestamp ? new Date(update.timestamp).toLocaleDateString() : 'Unknown'}</Chakra.Text>
                 </Chakra.Card>
               ))

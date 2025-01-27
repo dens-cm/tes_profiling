@@ -351,6 +351,9 @@ export default function NewUserForm() {
                         <hr />
                         <Chakra.Box mt='2%' display='flex' justifyContent='right'>
                             <Chakra.Button onClick={onOpenLogoutModal} h='1.8vw' colorScheme='blue' fontSize='.8vw' fontWeight='400' leftIcon={<BiSolidLogOut />} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>Logout</Chakra.Button>
+                            <Chakra.Box w='.1px' ml='1%' bg='gray'>
+
+                            </Chakra.Box>
                             <Chakra.Button type='submit' h='1.8vw' ml='1%' colorScheme='teal' fontSize='.9vw' leftIcon={<TiCloudStorage />} isLoading={isLoading} isDisabled={isLoading} display='flex' alignItems='center' borderRadius='0'>Save</Chakra.Button>
                         </Chakra.Box>
                         <Chakra.Input hidden name="status" value={formData.status} onChange={handleChange} required h='2.5vw' fontSize='1vw' variant='filled' borderRadius='0' placeholder='...' />
