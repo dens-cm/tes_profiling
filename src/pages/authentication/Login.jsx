@@ -118,7 +118,7 @@ export default function Login() {
                         </form>
                     </Chakra.Box>
                 </Chakra.Box>
-                <Chakra.Box w='100%' mt='2%' mb='5%' p='.4%' display='flex' alignItems='center' justifyContent='center'>
+                <Chakra.Box w='100%' mt='2%' mb='2.5%' p='.4%' display='flex' alignItems='center' justifyContent='center'>
                     <Chakra.Box w='100%' bg='rgba(255, 255, 255, .7)' p='2%'>
                         {sliderLoading ? (
                             <Chakra.Box w="100%" display="flex" justifyContent="center" alignItems="center">
