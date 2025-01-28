@@ -82,11 +82,13 @@ export default function Login() {
                 <Chakra.Box w='100%' p='0 .4% 0 .4%' display='flex' alignItems='center'>
                     <Chakra.Box w='100%' h='.1px' bg='#094333'></Chakra.Box>
                 </Chakra.Box>
-                <Chakra.Box w='100%' p='.4% .4% .4% .4%' display='flex' alignItems='center'>
+                <Chakra.Box w='100%' p='.4% .4% 0% .4%' display='flex' alignItems='center'>
                     <Chakra.Icon fontSize='.8vw' mr='.1%' as={MapPin} />
-                    <Chakra.Text fontSize='.7vw' fontWeight='500' textTransform='uppercase'>Tagbina District I ,</Chakra.Text>
+                    <Chakra.Text fontSize='.7vw' fontWeight='500' textTransform='uppercase'>Tagbina District I</Chakra.Text>
+                </Chakra.Box>
+                <Chakra.Box display='flex' alignItems='center'>
                     <Chakra.Icon fontSize='.7vw' ml='.4%' mr='.2%' as={Facebook} />
-                    <Chakra.Text fontSize='.7vw' fontWeight='500' textTransform='uppercase'><Chakra.Link href='https://www.facebook.com/profile.php?id=61550210364893' isExternal>facebook</Chakra.Link></Chakra.Text>
+                    <Chakra.Text fontSize='.7vw' fontWeight='500'><Chakra.Link href='https://www.facebook.com/profile.php?id=61550210364893' isExternal>Facebook - Tagongon Elementary School</Chakra.Link></Chakra.Text>
                 </Chakra.Box>
                 <Chakra.Box w='100%' mt='1%' p='.4%'>
                     <Chakra.Box w='100%' p='.4% .4% .4% .6%' bg='#094333' display='flex' alignItems='center'>
@@ -184,7 +186,7 @@ export default function Login() {
                             updates.map((update, index) => (
                                 <Chakra.Card key={index} w='49.3%' p='1.5vw' borderRadius='0' boxShadow='.3vw .3vw .3vw rgb(105, 126, 116, .1)'>
                                     <Chakra.Heading mb='.8%' fontSize='1vw' textAlign='justify' textTransform='capitalize'>{update.header}</Chakra.Heading>
-                                    <hr/>
+                                    <hr />
                                     <Chakra.Box w='100%' mt='1%'>
                                         <Chakra.Box w='100%' fontSize='.9vw'>
                                             <Chakra.Text fontSize='.9vw' mt='.3vw' pl='1vw' pr='1vw' textAlign='justify' style={{ whiteSpace: 'pre-wrap' }}>{update.content}</Chakra.Text>
@@ -199,7 +201,7 @@ export default function Login() {
                                             )}
                                         </Chakra.Box>
                                     </Chakra.Box>
-                                    <hr/>
+                                    <hr />
                                     <Chakra.Text mt='1.5vw' pl='1vw' pr='1vw' fontSize='.7vw' fontStyle='italic'><b>Date Posted:</b> {update.timestamp ? new Date(update.timestamp).toLocaleDateString() : 'Unknown'}</Chakra.Text>
                                 </Chakra.Card>
                             ))
