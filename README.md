@@ -1,4 +1,4 @@
-# 📱 Tagongon Elementary School Profiling System
+# 📋 Tagongon Elementary School Profiling System
 
 **Project Status:** Done  
 
